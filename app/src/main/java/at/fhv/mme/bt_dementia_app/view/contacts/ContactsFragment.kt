@@ -6,6 +6,7 @@ import android.view.View
 import android.view.ViewGroup
 import androidx.fragment.app.Fragment
 import androidx.fragment.app.viewModels
+import androidx.navigation.fragment.findNavController
 import androidx.recyclerview.widget.LinearLayoutManager
 import androidx.recyclerview.widget.RecyclerView
 import at.fhv.mme.bt_dementia_app.R
@@ -36,11 +37,7 @@ class ContactsFragment : Fragment() {
     override fun onViewCreated(view: View, savedInstanceState: Bundle?) {
         super.onViewCreated(view, savedInstanceState)
 
-        // set page title
-        binding.header.tvTitle.setText(R.string.title_contacts)
-
-        // initialize RecyclerView
-        initRv()
+        initViews()
 
         // observe the contact list from the ViewModel
         viewModel.contacts.observe(viewLifecycleOwner) { contacts ->
@@ -49,10 +46,19 @@ class ContactsFragment : Fragment() {
         }
     }
 
-    private fun initRv() {
+    private fun initViews() {
+        // set page title
+        binding.header.tvTitle.setText(R.string.title_contacts)
+
+        // initialize RecyclerView
         contactListAdapter = ContactListAdapter()
         binding.rvContactList.layoutManager = LinearLayoutManager(context, RecyclerView.VERTICAL, false)
         binding.rvContactList.adapter = contactListAdapter
+
+        // initialize add contact button
+        binding.btnAddContact.setOnClickListener {
+            findNavController().navigate(R.id.action_contactsFragment_to_addContactFragment)
+        }
     }
 
     override fun onDestroyView() {

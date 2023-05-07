@@ -1,8 +1,10 @@
 package at.fhv.mme.bt_dementia_app.view
 
 import android.os.Bundle
+import android.view.View
 import androidx.appcompat.app.AppCompatActivity
 import androidx.navigation.NavController
+import androidx.navigation.NavDestination
 import androidx.navigation.fragment.NavHostFragment
 import androidx.navigation.ui.setupWithNavController
 import at.fhv.mme.bt_dementia_app.R
@@ -26,5 +28,14 @@ class MainActivity : AppCompatActivity() {
         navController = navHostFragment.navController
 
         binding.includeMain.bottomNavigation.setupWithNavController(navController)
+
+        // remove bottom navigation bar from selected pages
+        navController.addOnDestinationChangedListener { _, nd: NavDestination, _ ->
+            if (nd.id == R.id.calendarFragment || nd.id == R.id.medicationFragment || nd.id == R.id.contactsFragment) {
+                binding.includeMain.bottomNavigation.visibility = View.VISIBLE
+            } else {
+                binding.includeMain.bottomNavigation.visibility = View.GONE
+            }
+        }
     }
 }
