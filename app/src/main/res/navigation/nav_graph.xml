@@ -6,17 +6,17 @@
     app:startDestination="@id/calendarFragment">
     <fragment
         android:id="@+id/calendarFragment"
-        android:name="at.fhv.mme.bt_dementia_app.ui.CalendarFragment"
+        android:name="at.fhv.mme.bt_dementia_app.view.CalendarFragment"
         android:label="fragment_calendar"
         tools:layout="@layout/fragment_calendar" />
     <fragment
         android:id="@+id/medicationFragment"
-        android:name="at.fhv.mme.bt_dementia_app.ui.MedicationFragment"
+        android:name="at.fhv.mme.bt_dementia_app.view.MedicationFragment"
         android:label="fragment_medication"
         tools:layout="@layout/fragment_medication" />
     <fragment
         android:id="@+id/contactsFragment"
-        android:name="at.fhv.mme.bt_dementia_app.ui.ContactsFragment"
+        android:name="at.fhv.mme.bt_dementia_app.view.ContactsFragment"
         android:label="fragment_contacts"
         tools:layout="@layout/fragment_contacts" />
 </navigation>

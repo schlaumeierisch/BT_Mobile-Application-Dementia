@@ -1,15 +1,15 @@
-package at.fhv.mme.bt_dementia_app.ui
+package at.fhv.mme.bt_dementia_app.view
 
 import android.os.Bundle
 import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
 import androidx.fragment.app.Fragment
-import at.fhv.mme.bt_dementia_app.databinding.FragmentMedicationBinding
+import at.fhv.mme.bt_dementia_app.databinding.FragmentContactsBinding
 
-class MedicationFragment : Fragment() {
+class ContactsFragment : Fragment() {
 
-    private var _binding: FragmentMedicationBinding? = null
+    private var _binding: FragmentContactsBinding? = null
     private val binding get() = _binding!!
 
     override fun onCreateView(
@@ -17,7 +17,7 @@ class MedicationFragment : Fragment() {
         container: ViewGroup?,
         savedInstanceState: Bundle?
     ): View {
-        _binding = FragmentMedicationBinding.inflate(inflater, container, false)
+        _binding = FragmentContactsBinding.inflate(inflater, container, false)
         return binding.root
     }
 

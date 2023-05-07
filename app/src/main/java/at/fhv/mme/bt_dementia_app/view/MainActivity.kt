@@ -1,4 +1,4 @@
-package at.fhv.mme.bt_dementia_app.ui
+package at.fhv.mme.bt_dementia_app.view
 
 import android.os.Bundle
 import androidx.appcompat.app.AppCompatActivity
