@@ -4,17 +4,14 @@
     xmlns:tools="http://schemas.android.com/tools"
     android:layout_width="match_parent"
     android:layout_height="match_parent"
-    tools:context=".view.fragment.ContactsFragment">
+    android:paddingBottom="56dp"
+    tools:context=".view.contacts.ContactsFragment">
 
-    <TextView
-        android:id="@+id/tvTitle"
-        style="@style/bold_label_title"
-        android:layout_width="0dp"
+    <include
+        android:id="@+id/header"
+        layout="@layout/header"
+        android:layout_width="match_parent"
         android:layout_height="wrap_content"
-        android:layout_marginStart="32dp"
-        android:layout_marginTop="32dp"
-        android:layout_marginEnd="32dp"
-        android:text="@string/title_contacts"
         app:layout_constraintEnd_toEndOf="parent"
         app:layout_constraintStart_toStartOf="parent"
         app:layout_constraintTop_toTopOf="parent" />
@@ -30,7 +27,7 @@
         app:layout_constraintBottom_toTopOf="@+id/btnAddContact"
         app:layout_constraintEnd_toEndOf="parent"
         app:layout_constraintStart_toStartOf="parent"
-        app:layout_constraintTop_toBottomOf="@+id/tvTitle" />
+        app:layout_constraintTop_toBottomOf="@+id/header" />
 
     <Button
         android:id="@+id/btnAddContact"
@@ -39,7 +36,7 @@
         android:layout_height="wrap_content"
         android:layout_marginStart="32dp"
         android:layout_marginEnd="32dp"
-        android:layout_marginBottom="88dp"
+        android:layout_marginBottom="16dp"
         android:text="@string/button_add_contact"
         app:icon="@drawable/icon_add_24dp"
         app:layout_constraintBottom_toBottomOf="parent"

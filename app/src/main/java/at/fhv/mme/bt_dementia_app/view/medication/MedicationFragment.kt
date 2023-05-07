@@ -1,10 +1,11 @@
-package at.fhv.mme.bt_dementia_app.view.fragment
+package at.fhv.mme.bt_dementia_app.view.medication
 
 import android.os.Bundle
 import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
 import androidx.fragment.app.Fragment
+import at.fhv.mme.bt_dementia_app.R
 import at.fhv.mme.bt_dementia_app.databinding.FragmentMedicationBinding
 
 class MedicationFragment : Fragment() {
@@ -24,8 +25,8 @@ class MedicationFragment : Fragment() {
     override fun onViewCreated(view: View, savedInstanceState: Bundle?) {
         super.onViewCreated(view, savedInstanceState)
 
-        // TODO: init
-
+        // set page title
+        binding.header.tvTitle.setText(R.string.title_medication)
     }
 
     override fun onDestroyView() {
