@@ -1,15 +1,15 @@
-package at.fhv.mme.bt_dementia_app.view
+package at.fhv.mme.bt_dementia_app.view.fragment
 
 import android.os.Bundle
 import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
 import androidx.fragment.app.Fragment
-import at.fhv.mme.bt_dementia_app.databinding.FragmentCalendarBinding
+import at.fhv.mme.bt_dementia_app.databinding.FragmentContactsBinding
 
-class CalendarFragment : Fragment() {
+class ContactsFragment : Fragment() {
 
-    private var _binding: FragmentCalendarBinding? = null
+    private var _binding: FragmentContactsBinding? = null
     private val binding get() = _binding!!
 
     override fun onCreateView(
@@ -17,7 +17,7 @@ class CalendarFragment : Fragment() {
         container: ViewGroup?,
         savedInstanceState: Bundle?
     ): View {
-        _binding = FragmentCalendarBinding.inflate(inflater, container, false)
+        _binding = FragmentContactsBinding.inflate(inflater, container, false)
         return binding.root
     }
 

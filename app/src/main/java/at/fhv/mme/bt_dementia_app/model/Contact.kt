@@ -15,6 +15,9 @@ data class Contact(
     @ColumnInfo(name = "phone_number")
     val phoneNumber: String,
 
+    @ColumnInfo(name = "profile_image_path")
+    val profileImagePath: String? = null,
+
     @PrimaryKey(autoGenerate = true)
     @ColumnInfo(name = "id")
     val id: Long? = null

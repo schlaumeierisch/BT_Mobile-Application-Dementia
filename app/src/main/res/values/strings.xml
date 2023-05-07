@@ -9,4 +9,8 @@
 
     <!-- contacts screen -->
     <string name="title_contacts">Contacts</string>
+    <string name="button_add_contact">Add Contact</string>
+
+    <!-- contact item -->
+    <string name="button_call">Call</string>
 </resources>

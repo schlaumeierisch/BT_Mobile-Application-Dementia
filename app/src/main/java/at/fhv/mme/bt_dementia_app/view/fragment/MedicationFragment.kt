@@ -1,4 +1,4 @@
-package at.fhv.mme.bt_dementia_app.view
+package at.fhv.mme.bt_dementia_app.view.fragment
 
 import android.os.Bundle
 import android.view.LayoutInflater

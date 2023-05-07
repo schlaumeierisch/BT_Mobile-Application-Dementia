@@ -20,8 +20,8 @@ class ContactViewModel @Inject constructor(
     val addContactResult = MutableLiveData<AddContactResult>()
     val deleteContactResult = MutableLiveData<DeleteContactResult>()
 
-    fun addContact(name: String, relation: String, phoneNumber: String) {
-        val contact = Contact(name, relation, phoneNumber)
+    fun addContact(name: String, relation: String, phoneNumber: String, profileImagePath: String) {
+        val contact = Contact(name, relation, phoneNumber, profileImagePath)
 
         viewModelScope.launch {
             try {

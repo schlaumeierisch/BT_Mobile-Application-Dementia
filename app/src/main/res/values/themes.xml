@@ -14,14 +14,47 @@
         <!-- status bar color -->
         <item name="android:statusBarColor">?attr/colorPrimaryVariant</item>
 
-        <!-- base font family -->
+        <!-- base font family & color -->
         <item name="fontFamily">@font/montserrat</item>
+        <item name="android:textColor">@color/primaryTextColor</item>
     </style>
 
-    <!-- titles of pages (e.g., Calendar) -->
+    <!-- title of pages (e.g., Calendar) -->
     <style name="bold_label_title">
         <item name="android:textColor">@color/primaryColor</item>
         <item name="android:textSize">32sp</item>
         <item name="fontFamily">@font/montserrat_bold</item>
     </style>
+
+    <!-- title of items (RecyclerView items) -->
+    <style name="bold_label_title_item">
+        <item name="android:textSize">20sp</item>
+        <item name="fontFamily">@font/montserrat_medium</item>
+    </style>
+
+    <!-- text of items (RecyclerView items) -->
+    <style name="regular_text_item">
+        <item name="android:textSize">18sp</item>
+        <item name="fontFamily">@font/montserrat</item>
+    </style>
+
+    <!-- button on items (RecyclerView items) -->
+    <style name="button_item" parent="Widget.MaterialComponents.Button.Icon">
+        <item name="android:backgroundTint">@color/green</item>
+        <item name="android:textColor">@color/highEmphasis</item>
+        <item name="android:textSize">14sp</item>
+        <item name="iconTint">@color/highEmphasis</item>
+        <item name="cornerRadius">8dp</item>
+    </style>
+
+    <!-- base add buttons (large) -->
+    <style name="add_button_large" parent="Widget.MaterialComponents.Button.Icon">
+        <item name="android:backgroundTint">@color/accentColor</item>
+        <item name="android:textColor">@color/highEmphasis</item>
+        <item name="android:textSize">20sp</item>
+        <item name="iconTint">@color/highEmphasis</item>
+        <item name="cornerRadius">8dp</item>
+    </style>
+
+
 </resources>
