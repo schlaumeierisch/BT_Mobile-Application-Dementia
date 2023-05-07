@@ -3,14 +3,15 @@ package at.fhv.mme.bt_dementia_app.view.adapter
 import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
+import androidx.recyclerview.widget.DiffUtil
+import androidx.recyclerview.widget.ListAdapter
 import androidx.recyclerview.widget.RecyclerView
 import at.fhv.mme.bt_dementia_app.R
 import at.fhv.mme.bt_dementia_app.databinding.ItemContactBinding
 import at.fhv.mme.bt_dementia_app.model.Contact
 
-class ContactListAdapter(
-    private val contactList: List<Contact>
-) : RecyclerView.Adapter<ContactListAdapter.ViewHolder>() {
+class ContactListAdapter :
+    ListAdapter<Contact, ContactListAdapter.ViewHolder>(ContactDiffCallback()) {
 
     inner class ViewHolder(itemView: View) : RecyclerView.ViewHolder(itemView) {
         private val binding = ItemContactBinding.bind(itemView)
@@ -21,27 +22,24 @@ class ContactListAdapter(
         }
     }
 
-    /**
-     * creates and returns a ViewHolder object, inflating a standard layout called item_contact
-     */
     override fun onCreateViewHolder(parent: ViewGroup, viewType: Int): ViewHolder {
         return ViewHolder(
             LayoutInflater.from(parent.context).inflate(R.layout.item_contact, parent, false)
         )
     }
 
-    /**
-     * returns the size of the list
-     */
-    override fun getItemCount(): Int {
-        return contactList.size
+    override fun onBindViewHolder(holder: ViewHolder, position: Int) {
+        holder.databind(getItem(position))
     }
 
-    /**
-     * called by RecyclerView to display the data at the specified position.
-     */
-    override fun onBindViewHolder(holder: ViewHolder, position: Int) {
-        holder.databind(contactList[position])
+    class ContactDiffCallback : DiffUtil.ItemCallback<Contact>() {
+        override fun areItemsTheSame(oldItem: Contact, newItem: Contact): Boolean {
+            return oldItem.id == newItem.id
+        }
+
+        override fun areContentsTheSame(oldItem: Contact, newItem: Contact): Boolean {
+            return oldItem == newItem
+        }
     }
 }
 
