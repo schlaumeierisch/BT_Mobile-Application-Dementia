@@ -1,21 +1,25 @@
 <resources>
     <string name="app_name">bt-dementia-app</string>
 
-    <!-- calendar screen -->
+    <!-- calendar screens -->
     <string name="title_calendar">Calendar</string>
 
-    <!-- medication screen -->
+    <!-- medication screens -->
     <string name="title_medication">Medication</string>
 
-    <!-- contacts screen -->
+    <!-- contacts screens -->
     <string name="title_contacts">Contacts</string>
     <string name="button_add_contact">Add Contact</string>
     <string name="title_add_contact">Add Contact</string>
-    <array name="add_contact_stepper">
-        <item>General</item>
-        <item>Summary</item>
-    </array>
+    <string name="input_contact_name">Contact name</string>
+    <string name="input_relation">Relation</string>
+    <string name="button_upload_image">Upload image</string>
+    <string name="label_contact">Contact</string>
+    <string name="label_image">Image</string>
 
     <!-- contact item -->
     <string name="button_call">Call</string>
+    <string name="button_next">Next</string>
+    <string name="button_submit">Submit</string>
+    <string name="button_back">Back</string>
 </resources>
