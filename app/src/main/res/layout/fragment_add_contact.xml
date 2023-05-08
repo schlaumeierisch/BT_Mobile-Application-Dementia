@@ -19,6 +19,7 @@
         android:id="@+id/stepGeneral"
         android:layout_width="0dp"
         android:layout_height="0dp"
+        android:visibility="visible"
         app:layout_constraintBottom_toBottomOf="parent"
         app:layout_constraintEnd_toEndOf="parent"
         app:layout_constraintStart_toStartOf="parent"
@@ -67,6 +68,28 @@
 
         </com.google.android.material.textfield.TextInputLayout>
 
+        <com.google.android.material.textfield.TextInputLayout
+            android:id="@+id/tilPhoneNumber"
+            style="@style/Widget.MaterialComponents.TextInputLayout.OutlinedBox"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:layout_marginStart="32dp"
+            android:layout_marginTop="16dp"
+            android:layout_marginEnd="32dp"
+            android:hint="@string/input_phone_number"
+            app:layout_constraintEnd_toEndOf="parent"
+            app:layout_constraintHorizontal_bias="0.0"
+            app:layout_constraintStart_toStartOf="parent"
+            app:layout_constraintTop_toBottomOf="@+id/tilRelation"
+            app:startIconDrawable="@drawable/icon_call_24dp">
+
+            <com.google.android.material.textfield.TextInputEditText
+                android:id="@+id/tietPhoneNumber"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content" />
+
+        </com.google.android.material.textfield.TextInputLayout>
+
         <Button
             android:id="@+id/btnUploadImage"
             style="@style/upload_image_button"
@@ -78,11 +101,12 @@
             android:text="@string/button_upload_image"
             app:icon="@drawable/icon_image_24dp"
             app:layout_constraintEnd_toEndOf="parent"
+            app:layout_constraintHorizontal_bias="0.0"
             app:layout_constraintStart_toStartOf="parent"
-            app:layout_constraintTop_toBottomOf="@+id/tilRelation" />
+            app:layout_constraintTop_toBottomOf="@+id/tilPhoneNumber" />
 
         <Button
-            android:id="@+id/btnNext"
+            android:id="@+id/btnNextStep"
             style="@style/add_button_large"
             android:layout_width="0dp"
             android:layout_height="wrap_content"
@@ -108,7 +132,7 @@
         app:layout_constraintTop_toBottomOf="@+id/header">
 
         <TextView
-            android:id="@+id/textView"
+            android:id="@+id/tvContactLabel"
             style="@style/semibold_label_title"
             android:layout_width="0dp"
             android:layout_height="wrap_content"
@@ -130,8 +154,34 @@
             app:layout_constraintEnd_toEndOf="parent"
             app:layout_constraintHorizontal_bias="0.0"
             app:layout_constraintStart_toStartOf="parent"
-            app:layout_constraintTop_toBottomOf="@+id/textView"
+            app:layout_constraintTop_toBottomOf="@+id/tvContactLabel"
             tools:text="Steven, Son" />
+
+        <TextView
+            android:id="@+id/tvPhoneNumberLabel"
+            style="@style/semibold_label_title"
+            android:layout_width="0dp"
+            android:layout_height="wrap_content"
+            android:layout_marginStart="32dp"
+            android:layout_marginTop="32dp"
+            android:layout_marginEnd="32dp"
+            android:text="@string/label_phone_number"
+            app:layout_constraintEnd_toEndOf="parent"
+            app:layout_constraintStart_toStartOf="parent"
+            app:layout_constraintTop_toBottomOf="@id/tvNameAndRelation" />
+
+        <TextView
+            android:id="@+id/tvPhoneNumber"
+            android:layout_width="0dp"
+            android:layout_height="wrap_content"
+            android:layout_marginStart="32dp"
+            android:layout_marginTop="16dp"
+            android:layout_marginEnd="32dp"
+            app:layout_constraintEnd_toEndOf="parent"
+            app:layout_constraintHorizontal_bias="0.0"
+            app:layout_constraintStart_toStartOf="parent"
+            app:layout_constraintTop_toBottomOf="@+id/tvPhoneNumberLabel"
+            tools:text="+12 3456789" />
 
         <TextView
             android:id="@+id/tvImageLabel"
@@ -145,7 +195,7 @@
             app:layout_constraintEnd_toEndOf="parent"
             app:layout_constraintHorizontal_bias="0.0"
             app:layout_constraintStart_toStartOf="parent"
-            app:layout_constraintTop_toBottomOf="@+id/tvNameAndRelation" />
+            app:layout_constraintTop_toBottomOf="@+id/tvPhoneNumber" />
 
         <ImageView
             android:id="@+id/ivProfileImage"
@@ -159,7 +209,7 @@
             tools:srcCompat="@tools:sample/avatars" />
 
         <Button
-            android:id="@+id/btnBack"
+            android:id="@+id/btnStepBack"
             style="@style/back_button_large"
             android:layout_width="0dp"
             android:layout_height="wrap_content"
@@ -183,7 +233,7 @@
             app:icon="@drawable/icon_done_24dp"
             app:layout_constraintBottom_toBottomOf="parent"
             app:layout_constraintEnd_toEndOf="parent"
-            app:layout_constraintStart_toEndOf="@+id/btnBack" />
+            app:layout_constraintStart_toEndOf="@+id/btnStepBack" />
 
     </androidx.constraintlayout.widget.ConstraintLayout>
 

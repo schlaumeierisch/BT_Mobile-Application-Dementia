@@ -13,9 +13,12 @@
     <string name="title_add_contact">Add Contact</string>
     <string name="input_contact_name">Contact name</string>
     <string name="input_relation">Relation</string>
+    <string name="input_phone_number">Phone number</string>
     <string name="button_upload_image">Upload image</string>
     <string name="label_contact">Contact</string>
+    <string name="label_phone_number">Phone Number</string>
     <string name="label_image">Image</string>
+    <string name="text_contact_name_relation">%1$s (%2$s)</string>
 
     <!-- contact item -->
     <string name="button_call">Call</string>

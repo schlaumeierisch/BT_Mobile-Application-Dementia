@@ -4,6 +4,7 @@ import android.os.Bundle
 import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
+import android.widget.Toast
 import androidx.fragment.app.Fragment
 import androidx.navigation.fragment.findNavController
 import at.fhv.mme.bt_dementia_app.R
@@ -38,6 +39,42 @@ class AddContactFragment : Fragment() {
         // initialize back button
         binding.header.btnBack.setOnClickListener {
             findNavController().navigate(R.id.action_addContactFragment_to_contactsFragment)
+        }
+
+        // initialize upload image button
+        binding.btnUploadImage.setOnClickListener {
+            // TODO
+        }
+
+        // initialize next step button
+        binding.btnNextStep.setOnClickListener {
+            showStepSummary()
+        }
+
+        // initialize step back button
+        binding.btnStepBack.setOnClickListener {
+            showStepGeneral()
+        }
+    }
+
+    private fun showStepGeneral() {
+        binding.stepGeneral.visibility = View.VISIBLE
+        binding.stepSummary.visibility = View.GONE
+    }
+
+    private fun showStepSummary() {
+        val contactName: String = binding.tietContactName.text.toString()
+        val relation: String = binding.tietRelation.text.toString()
+        val phoneNumber: String = binding.tietPhoneNumber.text.toString()
+
+        if (contactName.isNotBlank() && relation.isNotBlank() && phoneNumber.isNotBlank()) {
+            binding.tvNameAndRelation.text = getString(R.string.text_contact_name_relation, contactName, relation)
+            binding.tvPhoneNumber.text = phoneNumber
+
+            binding.stepGeneral.visibility = View.GONE
+            binding.stepSummary.visibility = View.VISIBLE
+        } else {
+            Toast.makeText(requireContext(), "Please provide all information.", Toast.LENGTH_SHORT).show()
         }
     }
 
