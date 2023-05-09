@@ -1,9 +1,14 @@
 package at.fhv.mme.bt_dementia_app.view.contacts
 
+import android.app.Dialog
+import android.graphics.Color
+import android.graphics.drawable.ColorDrawable
 import android.os.Bundle
 import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
+import android.view.Window
+import android.widget.Button
 import android.widget.Toast
 import androidx.fragment.app.Fragment
 import androidx.navigation.fragment.findNavController
@@ -38,7 +43,7 @@ class AddContactFragment : Fragment() {
 
         // initialize back button
         binding.header.btnBack.setOnClickListener {
-            findNavController().navigate(R.id.action_addContactFragment_to_contactsFragment)
+            showConfirmationDialog()
         }
 
         // initialize upload image button
@@ -57,6 +62,29 @@ class AddContactFragment : Fragment() {
         }
     }
 
+    private fun showConfirmationDialog() {
+        val dialog = Dialog(requireContext()).apply {
+            requestWindowFeature(Window.FEATURE_NO_TITLE)
+            setCancelable(false)
+            setContentView(R.layout.confirmation_dialog)
+            window?.setBackgroundDrawable(ColorDrawable(Color.TRANSPARENT))
+        }
+
+        val btnConfirmationCancel = dialog.findViewById<Button>(R.id.btnConfirmationCancel)
+        val btnConfirmationConfirm = dialog.findViewById<Button>(R.id.btnConfirmationConfirm)
+
+        btnConfirmationCancel.setOnClickListener {
+            dialog.dismiss()
+        }
+
+        btnConfirmationConfirm.setOnClickListener {
+            dialog.dismiss()
+            findNavController().popBackStack()
+        }
+
+        dialog.show()
+    }
+
     private fun showStepGeneral() {
         binding.stepGeneral.visibility = View.VISIBLE
         binding.stepSummary.visibility = View.GONE
@@ -68,13 +96,15 @@ class AddContactFragment : Fragment() {
         val phoneNumber: String = binding.tietPhoneNumber.text.toString()
 
         if (contactName.isNotBlank() && relation.isNotBlank() && phoneNumber.isNotBlank()) {
-            binding.tvNameAndRelation.text = getString(R.string.text_contact_name_relation, contactName, relation)
+            binding.tvNameAndRelation.text =
+                getString(R.string.text_contact_name_relation, contactName, relation)
             binding.tvPhoneNumber.text = phoneNumber
 
             binding.stepGeneral.visibility = View.GONE
             binding.stepSummary.visibility = View.VISIBLE
         } else {
-            Toast.makeText(requireContext(), "Please provide all information.", Toast.LENGTH_SHORT).show()
+            Toast.makeText(requireContext(), "Please provide all information.", Toast.LENGTH_SHORT)
+                .show()
         }
     }
 

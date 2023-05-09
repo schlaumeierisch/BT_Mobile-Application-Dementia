@@ -25,4 +25,10 @@
     <string name="button_next">Next</string>
     <string name="button_submit">Submit</string>
     <string name="button_back">Back</string>
+
+    <!-- confirmation dialog -->
+    <string name="button_yes">Yes</string>
+    <string name="button_no">No</string>
+    <string name="label_confirmation_title">Cancel Operation</string>
+    <string name="label_confirmation_text">Are you sure you want to cancel the current add operation?</string>
 </resources>
