@@ -31,9 +31,13 @@
     <string name="button_yes">Yes</string>
     <string name="button_no">No</string>
     <string name="label_confirmation_cancel_title">Cancel Operation</string>
-    <string name="label_confirmation_delete_title">Delete Item</string>
+    <string name="label_confirmation_delete_title">Delete %1$s</string>
     <string name="label_confirmation_cancel_text">Are you sure you want to cancel the current operation?</string>
-    <string name="label_confirmation_delete_activity_text">Are you sure you want to delete this activity?</string>
-    <string name="label_confirmation_delete_contact_text">Are you sure you want to delete this contact?</string>
-    <string name="label_confirmation_delete_medication_text">Are you sure you want to delete this medication?</string>
+    <string name="label_confirmation_delete_text">Are you sure you want to delete this %1$s?</string>
+
+    <!-- toast messages -->
+    <string name="toast_no_image_chosen">No image chosen</string>
+    <string name="toast_provide_information">Please provide all information</string>
+    <string name="toast_call_contact_failure">Not able to call contact</string>
+    <string name="toast_call_contact_permission_required">Permission required to call contact</string>
 </resources>

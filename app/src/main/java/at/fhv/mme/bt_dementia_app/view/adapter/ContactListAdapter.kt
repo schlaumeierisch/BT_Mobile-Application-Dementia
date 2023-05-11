@@ -11,12 +11,15 @@ import at.fhv.mme.bt_dementia_app.R
 import at.fhv.mme.bt_dementia_app.databinding.ItemContactBinding
 import at.fhv.mme.bt_dementia_app.model.Contact
 
-class ContactListAdapter(private val onDelete: (Contact) -> Unit) : ListAdapter<Contact, ContactListAdapter.ViewHolder>(ContactDiffCallback()) {
+class ContactListAdapter(
+    private val onDelete: (Contact) -> Unit,
+    private val onCall: (Contact) -> Unit
+) : ListAdapter<Contact, ContactListAdapter.ViewHolder>(ContactDiffCallback()) {
 
     inner class ViewHolder(itemView: View) : RecyclerView.ViewHolder(itemView) {
         private val binding = ItemContactBinding.bind(itemView)
 
-        fun databind(contact: Contact, onDelete: (Contact) -> Unit) {
+        fun databind(contact: Contact, onDelete: (Contact) -> Unit, onCall: (Contact) -> Unit) {
             binding.tvName.text = contact.name
             binding.tvRelation.text = contact.relation
 
@@ -36,6 +39,10 @@ class ContactListAdapter(private val onDelete: (Contact) -> Unit) : ListAdapter<
             binding.ibtnDeleteContact.setOnClickListener {
                 onDelete(contact)
             }
+
+            binding.btnCall.setOnClickListener {
+                onCall(contact)
+            }
         }
 
         fun unbind() {
@@ -51,7 +58,7 @@ class ContactListAdapter(private val onDelete: (Contact) -> Unit) : ListAdapter<
     }
 
     override fun onBindViewHolder(holder: ViewHolder, position: Int) {
-        holder.databind(getItem(position), onDelete)
+        holder.databind(getItem(position), onDelete, onCall)
     }
 
     override fun onViewRecycled(holder: ViewHolder) {

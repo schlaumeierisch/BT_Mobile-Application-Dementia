@@ -39,7 +39,11 @@ class AddContactFragment : Fragment() {
                 binding.ivProfileImage.setImageURI(uri)
                 selectedImageUri = uri
             } else {
-                Toast.makeText(requireContext(), "No image chosen", Toast.LENGTH_SHORT).show()
+                Toast.makeText(
+                    requireContext(),
+                    getString(R.string.toast_no_image_chosen),
+                    Toast.LENGTH_SHORT
+                ).show()
             }
         }
 
@@ -131,8 +135,11 @@ class AddContactFragment : Fragment() {
             binding.stepGeneral.visibility = View.GONE
             binding.stepSummary.visibility = View.VISIBLE
         } else {
-            Toast.makeText(requireContext(), "Please provide all information.", Toast.LENGTH_SHORT)
-                .show()
+            Toast.makeText(
+                requireContext(),
+                getString(R.string.toast_provide_information),
+                Toast.LENGTH_SHORT
+            ).show()
         }
     }
 
