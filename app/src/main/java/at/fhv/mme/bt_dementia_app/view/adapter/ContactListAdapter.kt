@@ -1,5 +1,6 @@
 package at.fhv.mme.bt_dementia_app.view.adapter
 
+import android.graphics.BitmapFactory
 import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
@@ -10,15 +11,36 @@ import at.fhv.mme.bt_dementia_app.R
 import at.fhv.mme.bt_dementia_app.databinding.ItemContactBinding
 import at.fhv.mme.bt_dementia_app.model.Contact
 
-class ContactListAdapter :
-    ListAdapter<Contact, ContactListAdapter.ViewHolder>(ContactDiffCallback()) {
+class ContactListAdapter(private val onDelete: (Contact) -> Unit) : ListAdapter<Contact, ContactListAdapter.ViewHolder>(ContactDiffCallback()) {
 
     inner class ViewHolder(itemView: View) : RecyclerView.ViewHolder(itemView) {
         private val binding = ItemContactBinding.bind(itemView)
 
-        fun databind(contact: Contact) {
+        fun databind(contact: Contact, onDelete: (Contact) -> Unit) {
             binding.tvName.text = contact.name
             binding.tvRelation.text = contact.relation
+
+            val context = binding.root.context
+            try {
+                context.openFileInput(contact.profileImagePath).use { stream ->
+                    val bitmap = BitmapFactory.decodeStream(stream)
+                    binding.ivProfileImage.setImageBitmap(bitmap)
+                }
+            } catch (e: Exception) {
+                e.printStackTrace()
+
+                // set default profile image
+                binding.ivProfileImage.setImageResource(R.drawable.default_profile_image)
+            }
+
+            binding.ibtnDeleteContact.setOnClickListener {
+                onDelete(contact)
+            }
+        }
+
+        fun unbind() {
+            // set onClickListener null to prevent memory leaks
+            binding.ibtnDeleteContact.setOnClickListener(null)
         }
     }
 
@@ -29,7 +51,12 @@ class ContactListAdapter :
     }
 
     override fun onBindViewHolder(holder: ViewHolder, position: Int) {
-        holder.databind(getItem(position))
+        holder.databind(getItem(position), onDelete)
+    }
+
+    override fun onViewRecycled(holder: ViewHolder) {
+        super.onViewRecycled(holder)
+        holder.unbind()
     }
 
     class ContactDiffCallback : DiffUtil.ItemCallback<Contact>() {
@@ -42,4 +69,3 @@ class ContactListAdapter :
         }
     }
 }
-

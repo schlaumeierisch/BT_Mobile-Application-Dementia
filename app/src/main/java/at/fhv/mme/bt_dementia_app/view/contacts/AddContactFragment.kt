@@ -1,19 +1,21 @@
 package at.fhv.mme.bt_dementia_app.view.contacts
 
-import android.app.Dialog
-import android.graphics.Color
-import android.graphics.drawable.ColorDrawable
+import android.graphics.ImageDecoder
+import android.net.Uri
 import android.os.Bundle
 import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
-import android.view.Window
-import android.widget.Button
 import android.widget.Toast
+import androidx.activity.result.contract.ActivityResultContracts
 import androidx.fragment.app.Fragment
+import androidx.fragment.app.viewModels
 import androidx.navigation.fragment.findNavController
 import at.fhv.mme.bt_dementia_app.R
 import at.fhv.mme.bt_dementia_app.databinding.FragmentAddContactBinding
+import at.fhv.mme.bt_dementia_app.model.Contact
+import at.fhv.mme.bt_dementia_app.utils.DialogUtils
+import at.fhv.mme.bt_dementia_app.viewmodel.ContactViewModel
 import dagger.hilt.android.AndroidEntryPoint
 
 @AndroidEntryPoint
@@ -21,6 +23,25 @@ class AddContactFragment : Fragment() {
 
     private var _binding: FragmentAddContactBinding? = null
     private val binding get() = _binding!!
+
+    private val viewModel: ContactViewModel by viewModels()
+
+    private var contactName: String = ""
+    private var relation: String = ""
+    private var phoneNumber: String = ""
+    private var selectedImageUri: Uri? = null
+
+    // activity result launcher to choose image
+    private val pickImageResultLauncher =
+        registerForActivityResult(ActivityResultContracts.GetContent()) { uri: Uri? ->
+            if (uri != null) {
+                binding.tvProfileImageInfo.visibility = View.VISIBLE
+                binding.ivProfileImage.setImageURI(uri)
+                selectedImageUri = uri
+            } else {
+                Toast.makeText(requireContext(), "No image chosen", Toast.LENGTH_SHORT).show()
+            }
+        }
 
     override fun onCreateView(
         inflater: LayoutInflater,
@@ -43,12 +64,16 @@ class AddContactFragment : Fragment() {
 
         // initialize back button
         binding.header.btnBack.setOnClickListener {
-            showConfirmationDialog()
+            DialogUtils.showConfirmationDialog(
+                requireContext(),
+                getString(R.string.label_confirmation_cancel_title),
+                getString(R.string.label_confirmation_cancel_text)
+            ) { findNavController().popBackStack() }
         }
 
         // initialize upload image button
         binding.btnUploadImage.setOnClickListener {
-            // TODO
+            pickImageResultLauncher.launch("image/*")
         }
 
         // initialize next step button
@@ -60,29 +85,32 @@ class AddContactFragment : Fragment() {
         binding.btnStepBack.setOnClickListener {
             showStepGeneral()
         }
+
+        // initialize submit button
+        binding.btnSubmit.setOnClickListener {
+            addContact()
+        }
     }
 
-    private fun showConfirmationDialog() {
-        val dialog = Dialog(requireContext()).apply {
-            requestWindowFeature(Window.FEATURE_NO_TITLE)
-            setCancelable(false)
-            setContentView(R.layout.confirmation_dialog)
-            window?.setBackgroundDrawable(ColorDrawable(Color.TRANSPARENT))
-        }
+    private fun addContact() {
+        selectedImageUri?.let { uri ->
+            val source = ImageDecoder.createSource(requireActivity().contentResolver, uri)
+            val bitmap = ImageDecoder.decodeBitmap(source)
+            // val bitmap = MediaStore.Images.Media.getBitmap(requireActivity().contentResolver, uri)
+            val fileName = viewModel.saveImageToInternalStorage(requireContext(), bitmap)
 
-        val btnConfirmationCancel = dialog.findViewById<Button>(R.id.btnConfirmationCancel)
-        val btnConfirmationConfirm = dialog.findViewById<Button>(R.id.btnConfirmationConfirm)
+            // create a new Contact with the filename and other details
+            val contact = Contact(
+                name = contactName,
+                relation = relation,
+                phoneNumber = phoneNumber,
+                profileImagePath = fileName
+            )
 
-        btnConfirmationCancel.setOnClickListener {
-            dialog.dismiss()
-        }
-
-        btnConfirmationConfirm.setOnClickListener {
-            dialog.dismiss()
+            // save the Contact to database
+            viewModel.addContact(contact)
             findNavController().popBackStack()
         }
-
-        dialog.show()
     }
 
     private fun showStepGeneral() {
@@ -91,11 +119,11 @@ class AddContactFragment : Fragment() {
     }
 
     private fun showStepSummary() {
-        val contactName: String = binding.tietContactName.text.toString()
-        val relation: String = binding.tietRelation.text.toString()
-        val phoneNumber: String = binding.tietPhoneNumber.text.toString()
+        contactName = binding.tietContactName.text.toString()
+        relation = binding.tietRelation.text.toString()
+        phoneNumber = binding.tietPhoneNumber.text.toString()
 
-        if (contactName.isNotBlank() && relation.isNotBlank() && phoneNumber.isNotBlank()) {
+        if (contactName.isNotBlank() && relation.isNotBlank() && phoneNumber.isNotBlank() && selectedImageUri != null) {
             binding.tvNameAndRelation.text =
                 getString(R.string.text_contact_name_relation, contactName, relation)
             binding.tvPhoneNumber.text = phoneNumber

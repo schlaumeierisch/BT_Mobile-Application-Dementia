@@ -11,6 +11,7 @@ import androidx.recyclerview.widget.LinearLayoutManager
 import androidx.recyclerview.widget.RecyclerView
 import at.fhv.mme.bt_dementia_app.R
 import at.fhv.mme.bt_dementia_app.databinding.FragmentContactsBinding
+import at.fhv.mme.bt_dementia_app.utils.DialogUtils
 import at.fhv.mme.bt_dementia_app.view.adapter.ContactListAdapter
 import at.fhv.mme.bt_dementia_app.viewmodel.ContactViewModel
 import dagger.hilt.android.AndroidEntryPoint
@@ -50,10 +51,19 @@ class ContactsFragment : Fragment() {
         // set page title
         binding.header.tvTitle.setText(R.string.title_contacts)
 
-        // initialize RecyclerView
-        contactListAdapter = ContactListAdapter()
-        binding.rvContactList.layoutManager = LinearLayoutManager(context, RecyclerView.VERTICAL, false)
-        binding.rvContactList.adapter = contactListAdapter
+        // initialize adapter & RecyclerView
+        contactListAdapter = ContactListAdapter { contact ->
+            DialogUtils.showConfirmationDialog(
+                requireContext(),
+                getString(R.string.label_confirmation_delete_title),
+                getString(R.string.label_confirmation_delete_contact_text)
+            ) { viewModel.deleteContact(contact) }
+        }
+
+        binding.rvContactList.apply {
+            layoutManager = LinearLayoutManager(context, RecyclerView.VERTICAL, false)
+            adapter = contactListAdapter
+        }
 
         // initialize add contact button
         binding.btnAddContact.setOnClickListener {
