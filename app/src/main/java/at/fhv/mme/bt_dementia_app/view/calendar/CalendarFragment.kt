@@ -5,6 +5,7 @@ import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
 import androidx.fragment.app.Fragment
+import androidx.navigation.fragment.findNavController
 import at.fhv.mme.bt_dementia_app.R
 import at.fhv.mme.bt_dementia_app.databinding.FragmentCalendarBinding
 import java.time.LocalDate
@@ -59,9 +60,10 @@ class CalendarFragment : Fragment() {
         }
 
         // initialize add activity button
-
+        binding.btnAddActivity.setOnClickListener {
+            findNavController().navigate(R.id.action_calendarFragment_to_addActivityFragment)
+        }
     }
-
 
     override fun onDestroyView() {
         super.onDestroyView()

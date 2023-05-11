@@ -4,13 +4,49 @@
     <!-- calendar screens -->
     <string name="title_calendar">Calendar</string>
     <string name="button_add_activity">Add Activity</string>
-
-    <!-- medication screens -->
-    <string name="title_medication">Medication</string>
+    <string name="input_activity_name">Activity name</string>
+    <string name="input_activity_date">Date</string>
+    <string name="input_activity_time">Time</string>
+    <string name="input_reminder_time">Reminder time</string>
+    <string name="input_reminder_audio">Reminder audio</string>
+    <string name="input_additional_reminder_info">Additional reminder info</string>
+    <string name="label_activity">Activity</string>
+    <string name="label_reminder">Reminder</string>
+    <string name="label_additional_info">Additional Info</string>
+    <string name="text_activity_date_time">on %1$s at %2$s h</string>
+    <string name="text_reminder_time">%1$s before activity starts</string>
+    <string-array name="reminder_times">
+        <item>5 minutes</item>
+        <item>10 minutes</item>
+        <item>15 minutes</item>
+        <item>20 minutes</item>
+        <item>25 minutes</item>
+        <item>30 minutes</item>
+        <item>35 minutes</item>
+        <item>40 minutes</item>
+        <item>45 minutes</item>
+        <item>50 minutes</item>
+        <item>55 minutes</item>
+        <item>60 minutes</item>
+    </string-array>
+    <string-array name="raw_files">
+        <item>@raw/high_life_richard_smithson</item>
+        <item>@raw/mood_of_summer_abbynoise</item>
+        <item>@raw/paradise_island_hartzmann</item>
+    </string-array>
+    <string-array name="raw_files_names">
+        <item>Richard Smithson - High Life</item>
+        <item>Abbynoise - Mood of Summer</item>
+        <item>Hartzmann - Paradise Island</item>
+    </string-array>
 
     <!-- activity item -->
     <string name="checkbox_done">Done</string>
     <string name="checkbox_not_done_yet">Not done yet</string>
+    <string name="title_add_activity">Add Activity</string>
+
+    <!-- medication screens -->
+    <string name="title_medication">Medication</string>
 
     <!-- contacts screens -->
     <string name="title_contacts">Contacts</string>

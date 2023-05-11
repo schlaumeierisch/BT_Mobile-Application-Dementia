@@ -8,7 +8,11 @@
         android:id="@+id/calendarFragment"
         android:name="at.fhv.mme.bt_dementia_app.view.calendar.CalendarFragment"
         android:label="fragment_calendar"
-        tools:layout="@layout/fragment_calendar" />
+        tools:layout="@layout/fragment_calendar" >
+        <action
+            android:id="@+id/action_calendarFragment_to_addActivityFragment"
+            app:destination="@id/addActivityFragment" />
+    </fragment>
     <fragment
         android:id="@+id/medicationFragment"
         android:name="at.fhv.mme.bt_dementia_app.view.medication.MedicationFragment"
@@ -26,9 +30,9 @@
     <fragment
         android:id="@+id/addContactFragment"
         android:name="at.fhv.mme.bt_dementia_app.view.contacts.AddContactFragment"
-        android:label="AddContactFragment" >
-        <action
-            android:id="@+id/action_addContactFragment_to_contactsFragment"
-            app:destination="@id/contactsFragment" />
-    </fragment>
+        android:label="AddContactFragment" />
+    <fragment
+        android:id="@+id/addActivityFragment"
+        android:name="at.fhv.mme.bt_dementia_app.view.calendar.AddActivityFragment"
+        android:label="AddActivityFragment" />
 </navigation>
