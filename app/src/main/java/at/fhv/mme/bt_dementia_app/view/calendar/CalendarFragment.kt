@@ -7,11 +7,15 @@ import android.view.ViewGroup
 import androidx.fragment.app.Fragment
 import at.fhv.mme.bt_dementia_app.R
 import at.fhv.mme.bt_dementia_app.databinding.FragmentCalendarBinding
+import java.time.LocalDate
+import java.time.format.DateTimeFormatter
 
 class CalendarFragment : Fragment() {
 
     private var _binding: FragmentCalendarBinding? = null
     private val binding get() = _binding!!
+
+    private var date = LocalDate.now()
 
     override fun onCreateView(
         inflater: LayoutInflater,
@@ -25,9 +29,39 @@ class CalendarFragment : Fragment() {
     override fun onViewCreated(view: View, savedInstanceState: Bundle?) {
         super.onViewCreated(view, savedInstanceState)
 
-        // set page title
-        binding.header.tvTitle.setText(R.string.title_calendar)
+        initViews()
+
+        // observe the activity list from the ViewModel
     }
+
+    private fun initViews() {
+        // set page title & date
+        binding.header.tvTitle.setText(R.string.title_calendar)
+        binding.tvCurrentDate.text = date.format(DateTimeFormatter.ofPattern("dd/MM/yyyy"))
+
+        // initialize adapter & RecyclerView
+
+
+        // initialize header history button
+        binding.header.ibtnHeader.visibility = View.VISIBLE
+        binding.header.ibtnHeader.setOnClickListener {
+            // TODO
+        }
+
+        // initialize previous/next day buttons
+        binding.ibtnPreviousDay.setOnClickListener {
+            date = date.minusDays(1)
+            binding.tvCurrentDate.text = date.format(DateTimeFormatter.ofPattern("dd/MM/yyyy"))
+        }
+        binding.ibtnNextDay.setOnClickListener {
+            date = date.plusDays(1)
+            binding.tvCurrentDate.text = date.format(DateTimeFormatter.ofPattern("dd/MM/yyyy"))
+        }
+
+        // initialize add activity button
+
+    }
+
 
     override fun onDestroyView() {
         super.onDestroyView()

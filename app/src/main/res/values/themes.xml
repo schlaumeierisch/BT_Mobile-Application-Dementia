@@ -1,4 +1,4 @@
-<resources xmlns:tools="http://schemas.android.com/tools">
+<resources>
     <!-- base application theme -->
     <style name="Theme.Btdementiaapp" parent="Theme.MaterialComponents.DayNight.NoActionBar">
         <!-- primary brand color. -->
@@ -27,7 +27,7 @@
         <item name="fontFamily">@font/montserrat_bold</item>
     </style>
 
-    <!-- label (e.g., Add Contact form) -->
+    <!-- subtitles of pages (e.g., date in Calendar) -->
     <style name="semibold_label_title">
         <item name="android:textSize">24sp</item>
         <item name="fontFamily">@font/montserrat_semibold</item>
@@ -76,6 +76,30 @@
     <style name="upload_image_button" parent="Widget.MaterialComponents.Button.Icon">
         <item name="android:textSize">18sp</item>
         <item name="cornerRadius">8dp</item>
+    </style>
+
+    <!-- image buttons (navigate previous/next day) -->
+    <style name="select_day_image_button" parent="Widget.AppCompat.ImageButton">
+        <item name="android:background">@drawable/rounded_image_button</item>
+        <item name="android:layout_gravity">center_vertical</item>
+        <item name="android:textColor">@color/accentColor</item>
+        <item name="android:textSize">18sp</item>
+        <item name="tint">@color/highEmphasis</item>
+    </style>
+
+    <!-- activity checkboxes (done / not done yet) -->
+    <style name="done_checkbox" parent="Widget.AppCompat.CompoundButton.CheckBox">
+        <item name="android:textColor">@color/accentColor</item>
+        <item name="android:textSize">18sp</item>
+        <item name="buttonTint">@color/accentColor</item>
+    </style>
+
+    <style name="not_done_yet_checkbox" parent="Widget.AppCompat.CompoundButton.CheckBox">
+        <item name="android:paddingStart">8dp</item>
+        <item name="android:paddingEnd">8dp</item>
+        <item name="android:textColor">@color/secondaryTextColor</item>
+        <item name="android:textSize">18sp</item>
+        <item name="buttonTint">@color/secondaryTextColor</item>
     </style>
 
 </resources>

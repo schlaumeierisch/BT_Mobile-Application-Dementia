@@ -43,7 +43,7 @@
             app:layout_constraintTop_toTopOf="parent">
 
             <TextView
-                android:id="@+id/tvName"
+                android:id="@+id/tvContactName"
                 style="@style/medium_label_title_item"
                 android:layout_width="0dp"
                 android:layout_height="wrap_content"
@@ -51,7 +51,7 @@
                 app:layout_constraintEnd_toStartOf="@+id/ibtnDeleteContact"
                 app:layout_constraintStart_toStartOf="parent"
                 app:layout_constraintTop_toTopOf="parent"
-                tools:text="Steven" />
+                tools:text="Name" />
 
             <ImageButton
                 android:id="@+id/ibtnDeleteContact"
@@ -59,7 +59,6 @@
                 android:layout_height="48dp"
                 android:layout_gravity="center_vertical"
                 android:background="?attr/selectableItemBackgroundBorderless"
-                app:layout_constraintBottom_toBottomOf="@+id/tvRelation"
                 app:layout_constraintEnd_toEndOf="parent"
                 app:layout_constraintTop_toTopOf="parent"
                 app:srcCompat="@drawable/icon_delete_32dp"
@@ -67,7 +66,7 @@
                 tools:ignore="ContentDescription" />
 
             <TextView
-                android:id="@+id/tvRelation"
+                android:id="@+id/tvContactRelation"
                 style="@style/regular_text_item"
                 android:layout_width="0dp"
                 android:layout_height="wrap_content"
@@ -76,11 +75,11 @@
                 app:layout_constraintEnd_toStartOf="@+id/ibtnDeleteContact"
                 app:layout_constraintHorizontal_bias="1.0"
                 app:layout_constraintStart_toStartOf="parent"
-                app:layout_constraintTop_toBottomOf="@+id/tvName"
-                tools:text="Son" />
+                app:layout_constraintTop_toBottomOf="@+id/tvContactName"
+                tools:text="Relation" />
 
             <Button
-                android:id="@+id/btnCall"
+                android:id="@+id/btnCallContact"
                 style="@style/button_item"
                 android:layout_width="0dp"
                 android:layout_height="0dp"
@@ -90,7 +89,7 @@
                 app:layout_constraintBottom_toBottomOf="parent"
                 app:layout_constraintEnd_toEndOf="parent"
                 app:layout_constraintStart_toStartOf="parent"
-                app:layout_constraintTop_toBottomOf="@+id/tvRelation" />
+                app:layout_constraintTop_toBottomOf="@+id/tvContactRelation" />
 
         </androidx.constraintlayout.widget.ConstraintLayout>
 

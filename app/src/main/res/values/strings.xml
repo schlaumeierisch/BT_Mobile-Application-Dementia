@@ -3,9 +3,14 @@
 
     <!-- calendar screens -->
     <string name="title_calendar">Calendar</string>
+    <string name="button_add_activity">Add Activity</string>
 
     <!-- medication screens -->
     <string name="title_medication">Medication</string>
+
+    <!-- activity item -->
+    <string name="checkbox_done">Done</string>
+    <string name="checkbox_not_done_yet">Not done yet</string>
 
     <!-- contacts screens -->
     <string name="title_contacts">Contacts</string>

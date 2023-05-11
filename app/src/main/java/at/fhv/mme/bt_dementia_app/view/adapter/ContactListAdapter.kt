@@ -20,8 +20,8 @@ class ContactListAdapter(
         private val binding = ItemContactBinding.bind(itemView)
 
         fun databind(contact: Contact, onDelete: (Contact) -> Unit, onCall: (Contact) -> Unit) {
-            binding.tvName.text = contact.name
-            binding.tvRelation.text = contact.relation
+            binding.tvContactName.text = contact.name
+            binding.tvContactRelation.text = contact.relation
 
             val context = binding.root.context
             try {
@@ -40,7 +40,7 @@ class ContactListAdapter(
                 onDelete(contact)
             }
 
-            binding.btnCall.setOnClickListener {
+            binding.btnCallContact.setOnClickListener {
                 onCall(contact)
             }
         }
