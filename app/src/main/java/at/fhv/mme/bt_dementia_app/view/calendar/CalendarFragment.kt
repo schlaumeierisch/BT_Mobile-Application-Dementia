@@ -5,18 +5,29 @@ import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
 import androidx.fragment.app.Fragment
+import androidx.fragment.app.viewModels
 import androidx.navigation.fragment.findNavController
+import androidx.recyclerview.widget.LinearLayoutManager
+import androidx.recyclerview.widget.RecyclerView
 import at.fhv.mme.bt_dementia_app.R
 import at.fhv.mme.bt_dementia_app.databinding.FragmentCalendarBinding
+import at.fhv.mme.bt_dementia_app.model.Activity
+import at.fhv.mme.bt_dementia_app.utils.DialogUtils
+import at.fhv.mme.bt_dementia_app.view.adapter.ActivityListAdapter
+import at.fhv.mme.bt_dementia_app.viewmodel.ActivityViewModel
+import dagger.hilt.android.AndroidEntryPoint
 import java.time.LocalDate
 import java.time.format.DateTimeFormatter
 
+@AndroidEntryPoint
 class CalendarFragment : Fragment() {
 
     private var _binding: FragmentCalendarBinding? = null
     private val binding get() = _binding!!
 
-    private var date = LocalDate.now()
+    private lateinit var activityListAdapter: ActivityListAdapter
+
+    private val viewModel: ActivityViewModel by viewModels()
 
     override fun onCreateView(
         inflater: LayoutInflater,
@@ -30,33 +41,53 @@ class CalendarFragment : Fragment() {
     override fun onViewCreated(view: View, savedInstanceState: Bundle?) {
         super.onViewCreated(view, savedInstanceState)
 
+        viewModel.setNewDate(LocalDate.now())
         initViews()
 
+        // observe date from the ViewModel
+        viewModel.date.observe(viewLifecycleOwner) { date ->
+            binding.tvCurrentDate.text = date.format(DateTimeFormatter.ofPattern("dd/MM/yyyy"))
+        }
+
         // observe the activity list from the ViewModel
+        viewModel.activities.observe(viewLifecycleOwner) { activities ->
+            // update contact list in adapter
+            activityListAdapter.submitList(activities)
+        }
     }
 
     private fun initViews() {
         // set page title & date
         binding.header.tvTitle.setText(R.string.title_calendar)
-        binding.tvCurrentDate.text = date.format(DateTimeFormatter.ofPattern("dd/MM/yyyy"))
 
         // initialize adapter & RecyclerView
+        activityListAdapter = ActivityListAdapter(
+            onDelete = { activity: Activity ->
+                DialogUtils.showConfirmationDialog(
+                    requireContext(),
+                    getString(R.string.label_confirmation_delete_title, "Activity"),
+                    getString(R.string.label_confirmation_delete_text, "activity")
+                ) { viewModel.deleteActivity(activity) }
+            }
+        )
 
+        binding.rvActivityList.apply {
+            layoutManager = LinearLayoutManager(context, RecyclerView.VERTICAL, false)
+            adapter = activityListAdapter
+        }
 
         // initialize header history button
         binding.header.ibtnHeader.visibility = View.VISIBLE
         binding.header.ibtnHeader.setOnClickListener {
-            // TODO
+            // TODO: implement History
         }
 
         // initialize previous/next day buttons
         binding.ibtnPreviousDay.setOnClickListener {
-            date = date.minusDays(1)
-            binding.tvCurrentDate.text = date.format(DateTimeFormatter.ofPattern("dd/MM/yyyy"))
+            viewModel.setNewDate(viewModel.date.value!!.minusDays(1))
         }
         binding.ibtnNextDay.setOnClickListener {
-            date = date.plusDays(1)
-            binding.tvCurrentDate.text = date.format(DateTimeFormatter.ofPattern("dd/MM/yyyy"))
+            viewModel.setNewDate(viewModel.date.value!!.plusDays(1))
         }
 
         // initialize add activity button

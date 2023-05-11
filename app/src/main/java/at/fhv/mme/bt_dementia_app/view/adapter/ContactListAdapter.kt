@@ -46,8 +46,9 @@ class ContactListAdapter(
         }
 
         fun unbind() {
-            // set onClickListener null to prevent memory leaks
+            // set onClickListeners null to prevent memory leaks
             binding.ibtnDeleteContact.setOnClickListener(null)
+            binding.btnCallContact.setOnClickListener(null)
         }
     }
 

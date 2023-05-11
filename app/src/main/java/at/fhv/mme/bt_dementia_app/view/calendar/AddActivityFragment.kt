@@ -1,5 +1,7 @@
 package at.fhv.mme.bt_dementia_app.view.calendar
 
+import android.app.DatePickerDialog
+import android.app.TimePickerDialog
 import android.media.MediaPlayer
 import android.os.Bundle
 import android.view.LayoutInflater
@@ -8,11 +10,18 @@ import android.view.ViewGroup
 import android.widget.ArrayAdapter
 import android.widget.Toast
 import androidx.fragment.app.Fragment
+import androidx.fragment.app.viewModels
 import androidx.navigation.fragment.findNavController
 import at.fhv.mme.bt_dementia_app.R
 import at.fhv.mme.bt_dementia_app.databinding.FragmentAddActivityBinding
+import at.fhv.mme.bt_dementia_app.model.Activity
 import at.fhv.mme.bt_dementia_app.utils.DialogUtils
+import at.fhv.mme.bt_dementia_app.viewmodel.ActivityViewModel
 import dagger.hilt.android.AndroidEntryPoint
+import java.time.LocalDate
+import java.time.LocalTime
+import java.time.format.DateTimeFormatter
+import java.util.Calendar
 
 @AndroidEntryPoint
 class AddActivityFragment : Fragment() {
@@ -20,15 +29,21 @@ class AddActivityFragment : Fragment() {
     private var _binding: FragmentAddActivityBinding? = null
     private val binding get() = _binding!!
 
+    private val viewModel: ActivityViewModel by viewModels()
+
+    private val dateFormatter = DateTimeFormatter.ofPattern("dd/MM/yyyy")
+    private val timeFormatter = DateTimeFormatter.ofPattern("HH:mm")
+
     private var activityName: String = ""
     private var activityDate: String = ""
     private var activityTime: String = ""
     private var reminderTime: String = ""
     private var reminderAudio: String = ""
+    private var selectedAudioIndex: Int = -1
     private var selectedAudioResource: Int = -1
     private var additionalReminderInfo: String = ""
 
-    val audioResources = intArrayOf(
+    private val audioResources = intArrayOf(
         R.raw.high_life_richard_smithson,
         R.raw.mood_of_summer_abbynoise,
         R.raw.paradise_island_hartzmann
@@ -79,6 +94,12 @@ class AddActivityFragment : Fragment() {
                     mediaPlayer = MediaPlayer.create(requireContext(), selectedAudioResource)
                     mediaPlayer?.start()
                     binding.ibtnPlayReminderAudio.setImageResource(R.drawable.icon_pause_24dp)
+                } else {
+                    Toast.makeText(
+                        requireContext(),
+                        getString(R.string.toast_select_audio_first),
+                        Toast.LENGTH_SHORT
+                    ).show()
                 }
             }
         }
@@ -104,6 +125,42 @@ class AddActivityFragment : Fragment() {
             addActivity()
         }
 
+        // initialize date picker
+        val calendar = Calendar.getInstance()
+        val year = calendar.get(Calendar.YEAR)
+        val month = calendar.get(Calendar.MONTH)
+        val day = calendar.get(Calendar.DAY_OF_MONTH)
+
+        binding.tietActivityDate.setOnClickListener {
+            DatePickerDialog(
+                requireContext(),
+                { _, mYear, mMonth, mDay ->
+                    binding.tietActivityDate.setText(
+                        String.format("%02d/%02d/%04d", mDay, mMonth + 1, mYear)
+                    )
+                },
+                year,
+                month,
+                day
+            ).show()
+        }
+
+        // initialize time picker
+        val hour = calendar.get(Calendar.HOUR_OF_DAY)
+        val minute = calendar.get(Calendar.MINUTE)
+
+        binding.tietActivityTime.setOnClickListener {
+            TimePickerDialog(
+                requireContext(),
+                { _, mHour, mMinute ->
+                    binding.tietActivityTime.setText(String.format("%02d:%02d", mHour, mMinute))
+                },
+                hour,
+                minute,
+                true
+            ).show()
+        }
+
         // initialize and set array adapter for reminder time (dropdown menu)
         val reminderTimeAdapter = ArrayAdapter.createFromResource(
             requireContext(),
@@ -121,13 +178,26 @@ class AddActivityFragment : Fragment() {
         binding.actvReminderAudio.setAdapter(reminderAudioAdapter)
 
         binding.actvReminderAudio.setOnItemClickListener { parent, _, position, _ ->
-            reminderAudio = parent.getItemAtPosition(position).toString()
-            selectedAudioResource = audioResources[position]
+            selectedAudioIndex = position
+            reminderAudio = parent.getItemAtPosition(selectedAudioIndex).toString()
+            selectedAudioResource = audioResources[selectedAudioIndex]
         }
     }
 
     private fun addActivity() {
-        // TODO
+        val activity = Activity(
+            name = activityName,
+            date = LocalDate.parse(activityDate, dateFormatter),
+            time = LocalTime.parse(activityTime, timeFormatter),
+            reminderTime = reminderTime.replace("\\D".toRegex(), "").toInt(),
+            reminderAudioPath = requireContext().resources.getResourceEntryName(audioResources[selectedAudioIndex]),
+            additionalInfo = additionalReminderInfo,
+            isDone = false
+        )
+
+        // save activity to database
+        viewModel.addActivity(activity)
+        findNavController().popBackStack()
     }
 
     private fun showStepGeneral() {

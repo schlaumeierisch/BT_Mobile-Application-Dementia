@@ -3,6 +3,7 @@ package at.fhv.mme.bt_dementia_app.di
 import android.content.Context
 import androidx.room.Room
 import at.fhv.mme.bt_dementia_app.database.AppRoomDatabase
+import at.fhv.mme.bt_dementia_app.database.dao.ActivityDao
 import at.fhv.mme.bt_dementia_app.database.dao.ContactDao
 import dagger.Module
 import dagger.Provides
@@ -21,6 +22,11 @@ object AppModule {
             context.applicationContext,
             AppRoomDatabase::class.java, "APP_DATABASE"
         ).build()
+    }
+
+    @Provides
+    fun provideActivityDao(appRoomDatabase: AppRoomDatabase): ActivityDao {
+        return appRoomDatabase.activityDao()
     }
 
     @Provides

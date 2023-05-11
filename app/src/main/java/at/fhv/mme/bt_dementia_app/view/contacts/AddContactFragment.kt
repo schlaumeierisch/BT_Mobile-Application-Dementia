@@ -103,7 +103,6 @@ class AddContactFragment : Fragment() {
             // val bitmap = MediaStore.Images.Media.getBitmap(requireActivity().contentResolver, uri)
             val fileName = viewModel.saveImageToInternalStorage(requireContext(), bitmap)
 
-            // create a new Contact with the filename and other details
             val contact = Contact(
                 name = contactName,
                 relation = relation,
@@ -111,7 +110,7 @@ class AddContactFragment : Fragment() {
                 profileImagePath = fileName
             )
 
-            // save the Contact to database
+            // save contact to database
             viewModel.addContact(contact)
             findNavController().popBackStack()
         }
