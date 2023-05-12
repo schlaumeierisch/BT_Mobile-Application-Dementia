@@ -22,19 +22,19 @@ object CheckBoxUtils {
             checkBox.isChecked = true
             checkBox.text = context.getString(R.string.checkbox_done)
 
-            val textColor = ContextCompat.getColor(context, R.color.accentColor)
+            val textColor = ContextCompat.getColor(context, R.color.secondaryTextColor)
             checkBox.setTextColor(textColor)
 
-            val buttonTint = ContextCompat.getColorStateList(context, R.color.accentColor)
+            val buttonTint = ContextCompat.getColorStateList(context, R.color.secondaryTextColor)
             CompoundButtonCompat.setButtonTintList(checkBox, buttonTint)
         } else {
             checkBox.isChecked = false
             checkBox.text = context.getString(R.string.checkbox_not_done_yet)
 
-            val textColor = ContextCompat.getColor(context, R.color.secondaryTextColor)
+            val textColor = ContextCompat.getColor(context, R.color.accentColor)
             checkBox.setTextColor(textColor)
 
-            val buttonTint = ContextCompat.getColorStateList(context, R.color.secondaryTextColor)
+            val buttonTint = ContextCompat.getColorStateList(context, R.color.accentColor)
             CompoundButtonCompat.setButtonTintList(checkBox, buttonTint)
         }
     }

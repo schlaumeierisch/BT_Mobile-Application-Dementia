@@ -5,6 +5,7 @@ import androidx.room.Dao
 import androidx.room.Delete
 import androidx.room.Insert
 import androidx.room.Query
+import androidx.room.Update
 import at.fhv.mme.bt_dementia_app.model.Activity
 import java.time.LocalDate
 
@@ -15,6 +16,9 @@ interface ActivityDao {
 
     @Insert
     fun addActivity(activity: Activity)
+
+    @Update
+    fun updateActivity(activity: Activity)
 
     @Delete
     fun deleteActivity(activity: Activity)

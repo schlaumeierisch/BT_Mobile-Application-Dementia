@@ -18,6 +18,12 @@ class ActivityRepository @Inject constructor(private val activityDao: ActivityDa
         }
     }
 
+    suspend fun updateActivity(activity: Activity) {
+        withContext(Dispatchers.IO) {
+            activityDao.updateActivity(activity)
+        }
+    }
+
     suspend fun deleteActivity(activity: Activity) {
         withContext(Dispatchers.IO) {
             activityDao.deleteActivity(activity)

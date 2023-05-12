@@ -72,6 +72,16 @@
         <item name="strokeColor">@color/accentColor</item>
     </style>
 
+    <!-- cancel button (confirmation dialog -->
+    <style name="cancel_button_small" parent="back_button_large">
+        <item name="android:textSize">18sp</item>
+    </style>
+
+    <!-- confirm button (confirmation dialog -->
+    <style name="confirm_button_small" parent="add_button_large">
+        <item name="android:textSize">18sp</item>
+    </style>
+
     <!-- upload button (profile image) -->
     <style name="upload_image_button" parent="Widget.MaterialComponents.Button.Icon">
         <item name="android:textSize">18sp</item>

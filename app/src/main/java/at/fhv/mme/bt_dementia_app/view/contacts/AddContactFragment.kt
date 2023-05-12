@@ -70,13 +70,13 @@ class AddContactFragment : Fragment() {
         binding.header.btnBack.setOnClickListener {
             DialogUtils.showConfirmationDialog(
                 requireContext(),
-                getString(R.string.label_confirmation_cancel_title),
-                getString(R.string.label_confirmation_cancel_text)
+                getString(R.string.label_confirmation_discard_title),
+                getString(R.string.label_confirmation_discard_text)
             ) { findNavController().popBackStack() }
         }
 
         // initialize upload image button
-        binding.btnUploadImage.setOnClickListener {
+        binding.btnSelectImage.setOnClickListener {
             pickImageResultLauncher.launch("image/*")
         }
 
@@ -90,8 +90,8 @@ class AddContactFragment : Fragment() {
             showStepGeneral()
         }
 
-        // initialize submit button
-        binding.btnSubmit.setOnClickListener {
+        // initialize create button
+        binding.btnCreate.setOnClickListener {
             addContact()
         }
     }

@@ -12,13 +12,14 @@ import at.fhv.mme.bt_dementia_app.model.Activity
 import at.fhv.mme.bt_dementia_app.utils.CheckBoxUtils
 
 class ActivityListAdapter(
-    private val onDelete: (Activity) -> Unit
+    private val onSetDone: (Activity, Boolean) -> Unit,
+    private val onDelete: (Activity) -> Unit,
 ) : ListAdapter<Activity, ActivityListAdapter.ViewHolder>(ActivityDiffCallback()) {
 
     inner class ViewHolder(itemView: View) : RecyclerView.ViewHolder(itemView) {
         private val binding = ItemActivityBinding.bind(itemView)
 
-        fun databind(activity: Activity, onDelete: (Activity) -> Unit) {
+        fun databind(activity: Activity, onSetDone: (Activity, Boolean) -> Unit, onDelete: (Activity) -> Unit) {
             val context = binding.root.context
 
             binding.tvActivityName.text = activity.name
@@ -33,10 +34,15 @@ class ActivityListAdapter(
             }
 
             CheckBoxUtils.setCheckbox(context, binding.cbActivityDone, activity.isDone)
+            binding.cbActivityDone.isEnabled = !activity.isDone
+            binding.cbActivityDone.setOnClickListener {
+                onSetDone(activity, binding.cbActivityDone.isChecked)
+            }
         }
 
         fun unbind() {
-            // set onClickListener null to prevent memory leaks
+            // set onClickListeners null to prevent memory leaks
+            binding.cbActivityDone.setOnClickListener(null)
             binding.ibtnDeleteActivity.setOnClickListener(null)
         }
     }
@@ -48,7 +54,7 @@ class ActivityListAdapter(
     }
 
     override fun onBindViewHolder(holder: ViewHolder, position: Int) {
-        holder.databind(getItem(position), onDelete)
+        holder.databind(getItem(position), onSetDone, onDelete)
     }
 
     override fun onViewRecycled(holder: ViewHolder) {

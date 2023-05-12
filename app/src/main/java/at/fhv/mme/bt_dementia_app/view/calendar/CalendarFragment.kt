@@ -62,6 +62,11 @@ class CalendarFragment : Fragment() {
 
         // initialize adapter & RecyclerView
         activityListAdapter = ActivityListAdapter(
+            onSetDone = { activity: Activity, isDone: Boolean ->
+                if (isDone) {
+                    viewModel.setActivityDone(activity)
+                }
+            },
             onDelete = { activity: Activity ->
                 DialogUtils.showConfirmationDialog(
                     requireContext(),

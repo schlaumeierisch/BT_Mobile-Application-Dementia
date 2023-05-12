@@ -24,6 +24,7 @@ class ActivityViewModel @Inject constructor(
     }
 
     val addActivityResult = MutableLiveData<AddActivityResult>()
+    val updateActivityResult = MutableLiveData<UpdateActivityResult>()
     val deleteActivityResult = MutableLiveData<DeleteActivityResult>()
 
     fun setNewDate(newDate: LocalDate) {
@@ -52,6 +53,20 @@ class ActivityViewModel @Inject constructor(
             } catch (e: Exception) {
                 deleteActivityResult.postValue(
                     DeleteActivityResult.Error("Error while deleting activity: ${e.message}")
+                )
+            }
+        }
+    }
+
+    fun setActivityDone(activity: Activity) {
+        viewModelScope.launch {
+            try {
+                val updatedActivity = activity.copy(isDone = true)
+                activityRepository.updateActivity(updatedActivity)
+                updateActivityResult.postValue(UpdateActivityResult.Success)
+            } catch (e: Exception) {
+                updateActivityResult.postValue(
+                    UpdateActivityResult.Error("Error while updating activity: ${e.message}")
                 )
             }
         }

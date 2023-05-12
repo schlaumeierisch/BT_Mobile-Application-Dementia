@@ -5,6 +5,11 @@ sealed class AddActivityResult {
     data class Error(val message: String) : AddActivityResult()
 }
 
+sealed class UpdateActivityResult {
+    object Success : UpdateActivityResult()
+    data class Error(val message: String) : UpdateActivityResult()
+}
+
 sealed class DeleteActivityResult {
     object Success : DeleteActivityResult()
     data class Error(val message: String) : DeleteActivityResult()

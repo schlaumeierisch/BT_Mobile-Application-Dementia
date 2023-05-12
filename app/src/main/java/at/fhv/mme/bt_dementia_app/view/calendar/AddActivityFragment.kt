@@ -73,8 +73,8 @@ class AddActivityFragment : Fragment() {
         binding.header.btnBack.setOnClickListener {
             DialogUtils.showConfirmationDialog(
                 requireContext(),
-                getString(R.string.label_confirmation_cancel_title),
-                getString(R.string.label_confirmation_cancel_text)
+                getString(R.string.label_confirmation_discard_title),
+                getString(R.string.label_confirmation_discard_text)
             ) { findNavController().popBackStack() }
         }
 
@@ -120,8 +120,8 @@ class AddActivityFragment : Fragment() {
             showStepReminder()
         }
 
-        // initialize submit button
-        binding.btnSubmit.setOnClickListener {
+        // initialize create button
+        binding.btnCreate.setOnClickListener {
             addActivity()
         }
 

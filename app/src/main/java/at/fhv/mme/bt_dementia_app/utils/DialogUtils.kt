@@ -30,6 +30,7 @@ object DialogUtils {
             dialog.dismiss()
         }
 
+        btnConfirmationConfirm.text = title.split(" ")[0]
         btnConfirmationConfirm.setOnClickListener {
             dialog.dismiss()
             onConfirm()

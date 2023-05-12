@@ -43,7 +43,7 @@
                 app:layout_constraintEnd_toEndOf="parent"
                 app:layout_constraintStart_toStartOf="parent"
                 app:layout_constraintTop_toBottomOf="@id/ivDialogIcon"
-                tools:text="@string/label_confirmation_cancel_title" />
+                tools:text="@string/label_confirmation_discard_title" />
 
             <TextView
                 android:id="@+id/tvDialogMessage"
@@ -56,18 +56,18 @@
                 app:layout_constraintEnd_toEndOf="parent"
                 app:layout_constraintStart_toStartOf="parent"
                 app:layout_constraintTop_toBottomOf="@id/tvDialogTitle"
-                tools:text="@string/label_confirmation_cancel_text" />
+                tools:text="@string/label_confirmation_discard_text" />
 
             <Button
                 android:id="@+id/btnConfirmationCancel"
-                style="@style/back_button_large"
+                style="@style/cancel_button_small"
                 android:layout_width="0dp"
                 android:layout_height="wrap_content"
                 android:layout_marginStart="32dp"
                 android:layout_marginTop="16dp"
                 android:layout_marginEnd="8dp"
                 android:layout_marginBottom="32dp"
-                android:text="@string/button_no"
+                android:text="@string/button_cancel"
                 app:layout_constraintBottom_toBottomOf="parent"
                 app:layout_constraintEnd_toStartOf="@+id/btnConfirmationConfirm"
                 app:layout_constraintStart_toStartOf="parent"
@@ -75,14 +75,14 @@
 
             <Button
                 android:id="@+id/btnConfirmationConfirm"
-                style="@style/add_button_large"
+                style="@style/confirm_button_small"
                 android:layout_width="0dp"
                 android:layout_height="wrap_content"
                 android:layout_marginStart="8dp"
                 android:layout_marginTop="16dp"
                 android:layout_marginEnd="32dp"
                 android:layout_marginBottom="32dp"
-                android:text="@string/button_yes"
+                android:text="@string/button_confirm"
                 app:layout_constraintBottom_toBottomOf="parent"
                 app:layout_constraintEnd_toEndOf="parent"
                 app:layout_constraintStart_toEndOf="@+id/btnConfirmationCancel"
