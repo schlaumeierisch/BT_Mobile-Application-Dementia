@@ -191,8 +191,7 @@ class AddActivityFragment : Fragment() {
             time = LocalTime.parse(activityTime, timeFormatter),
             reminderTime = reminderTime.replace("\\D".toRegex(), "").toInt(),
             reminderAudioPath = requireContext().resources.getResourceEntryName(audioResources[selectedAudioIndex]),
-            additionalInfo = additionalReminderInfo,
-            isDone = false
+            additionalInfo = additionalReminderInfo
         )
 
         // save activity to database
@@ -251,6 +250,8 @@ class AddActivityFragment : Fragment() {
 
     override fun onDestroyView() {
         super.onDestroyView()
+        mediaPlayer?.pause()
+
         _binding = null
     }
 }

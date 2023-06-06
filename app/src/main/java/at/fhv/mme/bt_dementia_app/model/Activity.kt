@@ -27,7 +27,7 @@ data class Activity(
     val additionalInfo: String,
 
     @ColumnInfo(name = "is_done")
-    val isDone: Boolean,
+    val isDone: Boolean = false,
 
     @PrimaryKey(autoGenerate = true)
     @ColumnInfo(name = "id")

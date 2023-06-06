@@ -2,6 +2,7 @@ package at.fhv.mme.bt_dementia_app.utils
 
 import android.content.res.Resources
 import androidx.room.TypeConverter
+import java.time.DayOfWeek
 import java.time.LocalDate
 import java.time.LocalTime
 import java.time.format.DateTimeFormatter
@@ -36,6 +37,18 @@ object Converters {
         return value?.let {
             LocalTime.parse(it, formatterTime)
         }
+    }
+
+    @TypeConverter
+    @JvmStatic
+    fun fromDayOfWeek(day: DayOfWeek): Int {
+        return day.value
+    }
+
+    @TypeConverter
+    @JvmStatic
+    fun toDayOfWeek(day: Int): DayOfWeek {
+        return DayOfWeek.of(day)
     }
 
     fun Int.dpToPx(): Int {

@@ -17,7 +17,11 @@
         android:id="@+id/medicationFragment"
         android:name="at.fhv.mme.bt_dementia_app.view.medication.MedicationFragment"
         android:label="fragment_medication"
-        tools:layout="@layout/fragment_medication" />
+        tools:layout="@layout/fragment_medication" >
+        <action
+            android:id="@+id/action_medicationFragment_to_addMedicationFragment"
+            app:destination="@id/addMedicationFragment" />
+    </fragment>
     <fragment
         android:id="@+id/contactsFragment"
         android:name="at.fhv.mme.bt_dementia_app.view.contacts.ContactsFragment"
@@ -35,4 +39,9 @@
         android:id="@+id/addActivityFragment"
         android:name="at.fhv.mme.bt_dementia_app.view.calendar.AddActivityFragment"
         android:label="AddActivityFragment" />
+    <fragment
+        android:id="@+id/addMedicationFragment"
+        android:name="at.fhv.mme.bt_dementia_app.view.medication.AddMedicationFragment"
+        android:label="fragment_add_medication"
+        tools:layout="@layout/fragment_add_medication" />
 </navigation>

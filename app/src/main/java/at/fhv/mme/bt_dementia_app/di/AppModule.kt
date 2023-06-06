@@ -5,6 +5,7 @@ import androidx.room.Room
 import at.fhv.mme.bt_dementia_app.database.AppRoomDatabase
 import at.fhv.mme.bt_dementia_app.database.dao.ActivityDao
 import at.fhv.mme.bt_dementia_app.database.dao.ContactDao
+import at.fhv.mme.bt_dementia_app.database.dao.MedicationDao
 import dagger.Module
 import dagger.Provides
 import dagger.hilt.InstallIn
@@ -32,5 +33,10 @@ object AppModule {
     @Provides
     fun provideContactDao(appRoomDatabase: AppRoomDatabase): ContactDao {
         return appRoomDatabase.contactDao()
+    }
+
+    @Provides
+    fun provideMedicationDao(appRoomDatabase: AppRoomDatabase): MedicationDao {
+        return appRoomDatabase.medicationDao()
     }
 }

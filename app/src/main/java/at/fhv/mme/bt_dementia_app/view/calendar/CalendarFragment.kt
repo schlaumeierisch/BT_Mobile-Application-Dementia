@@ -81,12 +81,6 @@ class CalendarFragment : Fragment() {
             adapter = activityListAdapter
         }
 
-        // initialize header history button
-        binding.header.ibtnHeader.visibility = View.VISIBLE
-        binding.header.ibtnHeader.setOnClickListener {
-            // TODO: implement History
-        }
-
         // initialize previous/next day buttons
         binding.ibtnPreviousDay.setOnClickListener {
             viewModel.setNewDate(viewModel.date.value!!.minusDays(1))
