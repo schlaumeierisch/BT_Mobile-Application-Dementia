@@ -10,6 +10,7 @@ import at.fhv.mme.bt_dementia_app.model.Contact
 import at.fhv.mme.bt_dementia_app.repository.ContactRepository
 import dagger.hilt.android.lifecycle.HiltViewModel
 import kotlinx.coroutines.Dispatchers
+import kotlinx.coroutines.flow.Flow
 import kotlinx.coroutines.launch
 import kotlinx.coroutines.runBlocking
 import kotlinx.coroutines.withContext
@@ -21,7 +22,7 @@ class ContactViewModel @Inject constructor(
     private val contactRepository: ContactRepository,
     application: Application
 ) : AndroidViewModel(application) {
-    val contacts = contactRepository.getAllContacts()
+    val contacts: Flow<List<Contact>> = contactRepository.getAllContacts()
 
     val addContactResult = MutableLiveData<AddContactResult>()
     val deleteContactResult = MutableLiveData<DeleteContactResult>()

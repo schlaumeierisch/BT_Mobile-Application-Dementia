@@ -1,17 +1,17 @@
 package at.fhv.mme.bt_dementia_app.repository
 
-import androidx.lifecycle.LiveData
 import at.fhv.mme.bt_dementia_app.database.dao.MedicationDao
 import at.fhv.mme.bt_dementia_app.model.Medication
 import kotlinx.coroutines.Dispatchers
+import kotlinx.coroutines.flow.Flow
 import kotlinx.coroutines.withContext
 import java.time.DayOfWeek
 import javax.inject.Inject
 
 class MedicationRepository @Inject constructor(private val medicationDao: MedicationDao) {
-    fun getAllMedication(): LiveData<List<Medication>> = medicationDao.getAllMedication()
+    fun getAllMedication(): Flow<List<Medication>> = medicationDao.getAllMedication()
 
-    fun getAllMedicationByDay(day: DayOfWeek): LiveData<List<Medication>> =
+    fun getAllMedicationByDay(day: DayOfWeek): Flow<List<Medication>> =
         medicationDao.getAllMedicationByDay(day)
 
     suspend fun addMedication(medication: Medication) {

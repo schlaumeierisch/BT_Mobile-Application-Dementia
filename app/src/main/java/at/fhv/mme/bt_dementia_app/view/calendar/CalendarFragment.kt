@@ -6,6 +6,7 @@ import android.view.View
 import android.view.ViewGroup
 import androidx.fragment.app.Fragment
 import androidx.fragment.app.viewModels
+import androidx.lifecycle.asLiveData
 import androidx.navigation.fragment.findNavController
 import androidx.recyclerview.widget.LinearLayoutManager
 import androidx.recyclerview.widget.RecyclerView
@@ -27,7 +28,7 @@ class CalendarFragment : Fragment() {
 
     private lateinit var activityListAdapter: ActivityListAdapter
 
-    private val viewModel: ActivityViewModel by viewModels()
+    private val activityViewModel: ActivityViewModel by viewModels()
 
     override fun onCreateView(
         inflater: LayoutInflater,
@@ -41,16 +42,16 @@ class CalendarFragment : Fragment() {
     override fun onViewCreated(view: View, savedInstanceState: Bundle?) {
         super.onViewCreated(view, savedInstanceState)
 
-        viewModel.setNewDate(LocalDate.now())
+        activityViewModel.setNewDate(LocalDate.now())
         initViews()
 
         // observe date from the ViewModel
-        viewModel.date.observe(viewLifecycleOwner) { date ->
+        activityViewModel.date.asLiveData().observe(viewLifecycleOwner) { date ->
             binding.tvCurrentDate.text = date.format(DateTimeFormatter.ofPattern("dd/MM/yyyy"))
         }
 
         // observe the activity list from the ViewModel
-        viewModel.activities.observe(viewLifecycleOwner) { activities ->
+        activityViewModel.activities.asLiveData().observe(viewLifecycleOwner) { activities ->
             // update contact list in adapter
             activityListAdapter.submitList(activities)
         }
@@ -64,7 +65,7 @@ class CalendarFragment : Fragment() {
         activityListAdapter = ActivityListAdapter(
             onSetDone = { activity: Activity, isDone: Boolean ->
                 if (isDone) {
-                    viewModel.setActivityDone(activity)
+                    activityViewModel.setActivityDone(activity)
                 }
             },
             onDelete = { activity: Activity ->
@@ -72,7 +73,7 @@ class CalendarFragment : Fragment() {
                     requireContext(),
                     getString(R.string.label_confirmation_delete_title, "Activity"),
                     getString(R.string.label_confirmation_delete_text, "activity")
-                ) { viewModel.deleteActivity(activity) }
+                ) { activityViewModel.deleteActivity(activity) }
             }
         )
 
@@ -83,10 +84,10 @@ class CalendarFragment : Fragment() {
 
         // initialize previous/next day buttons
         binding.ibtnPreviousDay.setOnClickListener {
-            viewModel.setNewDate(viewModel.date.value!!.minusDays(1))
+            activityViewModel.setNewDate(activityViewModel.date.value!!.minusDays(1))
         }
         binding.ibtnNextDay.setOnClickListener {
-            viewModel.setNewDate(viewModel.date.value!!.plusDays(1))
+            activityViewModel.setNewDate(activityViewModel.date.value!!.plusDays(1))
         }
 
         // initialize add activity button

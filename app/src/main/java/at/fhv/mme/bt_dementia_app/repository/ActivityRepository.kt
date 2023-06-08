@@ -1,15 +1,15 @@
 package at.fhv.mme.bt_dementia_app.repository
 
-import androidx.lifecycle.LiveData
 import at.fhv.mme.bt_dementia_app.database.dao.ActivityDao
 import at.fhv.mme.bt_dementia_app.model.Activity
 import kotlinx.coroutines.Dispatchers
+import kotlinx.coroutines.flow.Flow
 import kotlinx.coroutines.withContext
 import java.time.LocalDate
 import javax.inject.Inject
 
 class ActivityRepository @Inject constructor(private val activityDao: ActivityDao) {
-    fun getAllActivitiesByDate(date: LocalDate): LiveData<List<Activity>> =
+    fun getAllActivitiesByDate(date: LocalDate): Flow<List<Activity>> =
         activityDao.getAllActivitiesByDate(date)
 
     suspend fun addActivity(activity: Activity) {

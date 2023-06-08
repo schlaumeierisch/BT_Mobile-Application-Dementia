@@ -24,8 +24,7 @@ class ActivityListAdapter(
 
             binding.tvActivityName.text = activity.name
             binding.tvActivityTime.text = context.getString(
-                R.string.text_activity_date_time,
-                activity.date.toString(),
+                R.string.text_activity_time,
                 activity.time.toString()
             )
 

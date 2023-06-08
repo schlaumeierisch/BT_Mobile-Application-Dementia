@@ -15,6 +15,7 @@ import androidx.activity.result.contract.ActivityResultContracts
 import androidx.core.content.ContextCompat
 import androidx.fragment.app.Fragment
 import androidx.fragment.app.viewModels
+import androidx.lifecycle.asLiveData
 import androidx.navigation.fragment.findNavController
 import androidx.recyclerview.widget.LinearLayoutManager
 import androidx.recyclerview.widget.RecyclerView
@@ -67,7 +68,7 @@ class ContactsFragment : Fragment() {
         initViews()
 
         // observe the contact list from the ViewModel
-        viewModel.contacts.observe(viewLifecycleOwner) { contacts ->
+        viewModel.contacts.asLiveData().observe(viewLifecycleOwner) { contacts ->
             // update contact list in adapter
             contactListAdapter.submitList(contacts)
         }

@@ -16,6 +16,7 @@
     <string name="label_reminder">Reminder</string>
     <string name="label_additional_info">Additional Info</string>
     <string name="text_activity_date_time">on %1$s at %2$s h</string>
+    <string name="text_activity_time">at %1$s h</string>
     <string name="text_reminder_time">%1$s before activity starts</string>
     <string-array name="reminder_times">
         <item>5 minutes</item>

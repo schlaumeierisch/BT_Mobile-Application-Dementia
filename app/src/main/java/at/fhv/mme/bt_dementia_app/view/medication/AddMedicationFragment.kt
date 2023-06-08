@@ -27,7 +27,7 @@ class AddMedicationFragment : Fragment() {
     private var _binding: FragmentAddMedicationBinding? = null
     private val binding get() = _binding!!
 
-    private val viewModel: MedicationViewModel by viewModels()
+    private val medicationViewModel: MedicationViewModel by viewModels()
 
     private val timeFormatter = DateTimeFormatter.ofPattern("HH:mm")
 
@@ -124,7 +124,7 @@ class AddMedicationFragment : Fragment() {
         )
 
         // save medication to database
-        viewModel.addMedication(medication)
+        medicationViewModel.addMedication(medication)
         findNavController().popBackStack()
     }
 
