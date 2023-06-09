@@ -19,6 +19,7 @@
     <string name="text_activity_time">at %1$s h</string>
     <string name="text_reminder_time">%1$s before activity starts</string>
     <string-array name="reminder_times">
+        <item>0 minutes</item>
         <item>5 minutes</item>
         <item>10 minutes</item>
         <item>15 minutes</item>
