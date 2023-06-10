@@ -13,6 +13,7 @@ import androidx.recyclerview.widget.RecyclerView
 import at.fhv.mme.bt_dementia_app.R
 import at.fhv.mme.bt_dementia_app.databinding.FragmentCalendarBinding
 import at.fhv.mme.bt_dementia_app.model.Activity
+import at.fhv.mme.bt_dementia_app.utils.AlarmUtils
 import at.fhv.mme.bt_dementia_app.utils.DialogUtils
 import at.fhv.mme.bt_dementia_app.view.adapter.ActivityListAdapter
 import at.fhv.mme.bt_dementia_app.viewmodel.ActivityViewModel
@@ -73,7 +74,12 @@ class CalendarFragment : Fragment() {
                     requireContext(),
                     getString(R.string.label_confirmation_delete_title, "Activity"),
                     getString(R.string.label_confirmation_delete_text, "activity")
-                ) { activityViewModel.deleteActivity(activity) }
+                ) {
+                    activityViewModel.deleteActivity(activity)
+
+                    // cancel alarm for deleted activity
+                    AlarmUtils.cancelAlarm(activity, requireActivity())
+                }
             }
         )
 

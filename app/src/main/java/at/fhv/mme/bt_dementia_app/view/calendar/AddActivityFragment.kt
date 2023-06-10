@@ -15,8 +15,10 @@ import androidx.navigation.fragment.findNavController
 import at.fhv.mme.bt_dementia_app.R
 import at.fhv.mme.bt_dementia_app.databinding.FragmentAddActivityBinding
 import at.fhv.mme.bt_dementia_app.model.Activity
+import at.fhv.mme.bt_dementia_app.utils.AlarmUtils
 import at.fhv.mme.bt_dementia_app.utils.DialogUtils
 import at.fhv.mme.bt_dementia_app.viewmodel.ActivityViewModel
+import at.fhv.mme.bt_dementia_app.viewmodel.AddActivityResult
 import dagger.hilt.android.AndroidEntryPoint
 import java.time.LocalDate
 import java.time.LocalTime
@@ -196,7 +198,18 @@ class AddActivityFragment : Fragment() {
 
         // save activity to database
         viewModel.addActivity(activity)
-        findNavController().popBackStack()
+        viewModel.addActivityResult.observe(viewLifecycleOwner) { result ->
+            when (result) {
+                is AddActivityResult.Success -> {
+                    AlarmUtils.setupAlarm(result.activityId, activity, requireActivity())
+                    findNavController().popBackStack()
+                }
+
+                is AddActivityResult.Error -> {
+                    // Handle the error
+                }
+            }
+        }
     }
 
     private fun showStepGeneral() {

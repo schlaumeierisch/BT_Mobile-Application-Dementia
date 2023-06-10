@@ -16,7 +16,7 @@ interface ActivityDao {
     fun getAllActivitiesByDate(date: LocalDate): Flow<List<Activity>>
 
     @Insert(onConflict = OnConflictStrategy.IGNORE)
-    fun addActivity(activity: Activity)
+    fun addActivity(activity: Activity): Long
 
     @Update
     fun updateActivity(activity: Activity)

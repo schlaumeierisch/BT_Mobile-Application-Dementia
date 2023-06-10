@@ -12,8 +12,8 @@ class ActivityRepository @Inject constructor(private val activityDao: ActivityDa
     fun getAllActivitiesByDate(date: LocalDate): Flow<List<Activity>> =
         activityDao.getAllActivitiesByDate(date)
 
-    suspend fun addActivity(activity: Activity) {
-        withContext(Dispatchers.IO) {
+    suspend fun addActivity(activity: Activity): Long {
+        return withContext(Dispatchers.IO) {
             activityDao.addActivity(activity)
         }
     }

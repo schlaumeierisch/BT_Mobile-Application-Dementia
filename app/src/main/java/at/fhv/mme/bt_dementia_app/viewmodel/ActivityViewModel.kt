@@ -46,7 +46,8 @@ class ActivityViewModel @Inject constructor(
         val numOfDays = 3
         for (i in 0 until numOfDays) {
             val date = LocalDate.now().plusDays(i.toLong())
-            val todaysMedication = medicationRepository.getAllMedicationByDay(date.dayOfWeek).first()
+            val todaysMedication =
+                medicationRepository.getAllMedicationByDay(date.dayOfWeek).first()
 
             for (medication in todaysMedication) {
                 // check if medication as activity already exists
@@ -73,8 +74,8 @@ class ActivityViewModel @Inject constructor(
     fun addActivity(activity: Activity) {
         viewModelScope.launch {
             try {
-                activityRepository.addActivity(activity)
-                addActivityResult.postValue(AddActivityResult.Success)
+                val activityId = activityRepository.addActivity(activity)
+                addActivityResult.postValue(AddActivityResult.Success(activityId))
             } catch (e: Exception) {
                 addActivityResult.postValue(
                     AddActivityResult.Error("Error while adding activity: ${e.message}")
@@ -87,7 +88,7 @@ class ActivityViewModel @Inject constructor(
         viewModelScope.launch {
             try {
                 activityRepository.deleteActivity(activity)
-                deleteActivityResult.postValue(DeleteActivityResult.Success)
+                deleteActivityResult.postValue(DeleteActivityResult.Success(activity.id!!))
             } catch (e: Exception) {
                 deleteActivityResult.postValue(
                     DeleteActivityResult.Error("Error while deleting activity: ${e.message}")
