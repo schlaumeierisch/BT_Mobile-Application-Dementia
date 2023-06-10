@@ -9,8 +9,7 @@ import java.time.LocalDate
 import javax.inject.Inject
 
 class ActivityRepository @Inject constructor(private val activityDao: ActivityDao) {
-    fun getAllActivitiesByDate(date: LocalDate): Flow<List<Activity>> =
-        activityDao.getAllActivitiesByDate(date)
+    fun getAllActivitiesByDate(date: LocalDate): Flow<List<Activity>> = activityDao.getAllActivitiesByDate(date)
 
     suspend fun addActivity(activity: Activity): Long {
         return withContext(Dispatchers.IO) {

@@ -196,15 +196,9 @@ class AddActivityFragment : Fragment() {
         // save activity to database
         viewModel.addActivity(activity)
         viewModel.addActivityResult.observe(viewLifecycleOwner) { result ->
-            when (result) {
-                is AddActivityResult.Success -> {
-                    AlarmUtils.setupAlarm(result.activityId, activity, requireActivity())
-                    findNavController().popBackStack()
-                }
-
-                is AddActivityResult.Error -> {
-                    // Handle the error
-                }
+            if (result is AddActivityResult.Success) {
+                AlarmUtils.setupAlarm(result.activityId, activity, requireActivity())
+                findNavController().popBackStack()
             }
         }
     }

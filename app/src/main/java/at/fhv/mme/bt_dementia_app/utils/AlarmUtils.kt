@@ -6,28 +6,42 @@ import android.content.Context
 import android.content.Intent
 import androidx.fragment.app.FragmentActivity
 import at.fhv.mme.bt_dementia_app.model.Activity
+import java.util.Calendar
 
 object AlarmUtils {
-    fun setupAlarm(activityId: Long, activity: Activity, requireActivity: FragmentActivity) {
-        val alarmManager = requireActivity.getSystemService(Context.ALARM_SERVICE) as AlarmManager
+    fun setupAlarm(activityId: Long, activity: Activity, context: Context) {
+        val alarmManager = context.getSystemService(Context.ALARM_SERVICE) as AlarmManager
 
-        val alarmIntent = Intent(requireActivity, AlarmReceiver::class.java).apply {
+        val alarmIntent = Intent(context, AlarmReceiver::class.java).apply {
             putExtra("activity_name", activity.name)
             putExtra("activity_info", activity.additionalInfo)
+            putExtra("reminder_time", activity.reminderTime)
             putExtra("reminder_audio_path", activity.reminderAudioPath)
         }
         val pendingIntent = PendingIntent.getBroadcast(
-            requireActivity,
+            context,
             activityId.toInt(),
             alarmIntent,
             PendingIntent.FLAG_IMMUTABLE
         )
 
-        val alarmTime = System.currentTimeMillis() + 10000
+        // set alarm time
+        val calendar = Calendar.getInstance().apply {
+            set(Calendar.YEAR, activity.date.year)
+            set(Calendar.MONTH, activity.date.monthValue - 1)
+            set(Calendar.DAY_OF_MONTH, activity.date.dayOfMonth)
+            set(Calendar.HOUR_OF_DAY, activity.time.hour)
+            set(Calendar.MINUTE, activity.time.minute)
+            set(Calendar.SECOND, 0)
+            set(Calendar.MILLISECOND, 0)
+        }
+
+        val reminderTimeInMillis = activity.reminderTime * 60000
+        calendar.timeInMillis -= reminderTimeInMillis
 
         alarmManager.setExact(
             AlarmManager.RTC_WAKEUP,
-            alarmTime,
+            calendar.timeInMillis,
             pendingIntent
         )
     }
@@ -38,6 +52,7 @@ object AlarmUtils {
         val alarmIntent = Intent(requireActivity, AlarmReceiver::class.java).apply {
             putExtra("activity_name", activity.name)
             putExtra("activity_info", activity.additionalInfo)
+            putExtra("reminder_time", activity.reminderTime)
             putExtra("reminder_audio_path", activity.reminderAudioPath)
         }
         val pendingIntent = PendingIntent.getBroadcast(

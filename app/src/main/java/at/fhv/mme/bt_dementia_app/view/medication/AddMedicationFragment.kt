@@ -14,6 +14,7 @@ import at.fhv.mme.bt_dementia_app.R
 import at.fhv.mme.bt_dementia_app.databinding.FragmentAddMedicationBinding
 import at.fhv.mme.bt_dementia_app.model.Medication
 import at.fhv.mme.bt_dementia_app.utils.DialogUtils
+import at.fhv.mme.bt_dementia_app.viewmodel.ActivityViewModel
 import at.fhv.mme.bt_dementia_app.viewmodel.MedicationViewModel
 import dagger.hilt.android.AndroidEntryPoint
 import java.time.DayOfWeek

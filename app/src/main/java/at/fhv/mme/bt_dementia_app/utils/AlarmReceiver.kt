@@ -27,10 +27,14 @@ class AlarmReceiver : BroadcastReceiver() {
             return
         }
 
-        val activityName = intent.getStringExtra("activity_name") ?: "Unknown activity"
-        val activityInfo = intent.getStringExtra("activity_info") ?: ""
-        val reminderAudioPath =
-            intent.getStringExtra("reminder_audio_path") ?: "high_life_richard_smithson"
+        val reminderTime = intent.getIntExtra("reminder_time", 0)
+        val reminderAudioPath = intent.getStringExtra("reminder_audio_path")
+        val activityName = if (reminderTime == 0) {
+            intent.getStringExtra("activity_name") + " (now)"
+        } else {
+            intent.getStringExtra("activity_name") + " (in $reminderTime minutes)"
+        }
+        val activityInfo = intent.getStringExtra("activity_info") + " (now)"
 
         // retrieve the resource identifier for the audio file
         val audioResId = context.resources.getIdentifier(
