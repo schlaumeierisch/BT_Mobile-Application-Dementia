@@ -7,7 +7,6 @@ import android.content.BroadcastReceiver
 import android.content.Context
 import android.content.Intent
 import android.content.pm.PackageManager
-import android.os.Build
 import androidx.core.app.NotificationCompat
 import androidx.core.app.NotificationManagerCompat
 import androidx.core.content.ContextCompat
@@ -15,7 +14,7 @@ import at.fhv.mme.bt_dementia_app.R
 import at.fhv.mme.bt_dementia_app.view.MainActivity
 
 class AlarmReceiver : BroadcastReceiver() {
-    private val CHANNEL_ID = "MyAlarmChannel"
+    private val CHANNEL_ID = "ActivityAlarmChannel"
 
     override fun onReceive(context: Context, intent: Intent) {
         createNotificationChannel(context)
@@ -28,8 +27,20 @@ class AlarmReceiver : BroadcastReceiver() {
             return
         }
 
-        val activityName = intent.getStringExtra("activity_name") ?: "Unknown Activity"
+        val activityName = intent.getStringExtra("activity_name") ?: "Unknown activity"
         val activityInfo = intent.getStringExtra("activity_info") ?: ""
+        val reminderAudioPath =
+            intent.getStringExtra("reminder_audio_path") ?: "high_life_richard_smithson"
+
+        // retrieve the resource identifier for the audio file
+        val audioResId = context.resources.getIdentifier(
+            reminderAudioPath,
+            "raw",
+            context.packageName
+        )
+
+        // create and start the MediaPlayer with the audio file
+        MediaPlayerUtils.startMediaPlayer(context, audioResId)
 
         val notificationIntent = Intent(context, MainActivity::class.java).apply {
             flags = Intent.FLAG_ACTIVITY_NEW_TASK or Intent.FLAG_ACTIVITY_CLEAR_TASK
@@ -55,16 +66,14 @@ class AlarmReceiver : BroadcastReceiver() {
     }
 
     private fun createNotificationChannel(context: Context) {
-        if (Build.VERSION.SDK_INT >= Build.VERSION_CODES.O) {
-            val name = "MyAlarmChannel"
-            val descriptionText = "Channel for Alarm notification"
-            val importance = NotificationManager.IMPORTANCE_DEFAULT
-            val channel = NotificationChannel(CHANNEL_ID, name, importance).apply {
-                description = descriptionText
-            }
-            val notificationManager: NotificationManager =
-                context.getSystemService(Context.NOTIFICATION_SERVICE) as NotificationManager
-            notificationManager.createNotificationChannel(channel)
+        val name = "ActivityAlarmChannel"
+        val descriptionText = "Channel for activity alarm notification"
+        val importance = NotificationManager.IMPORTANCE_DEFAULT
+        val channel = NotificationChannel(CHANNEL_ID, name, importance).apply {
+            description = descriptionText
         }
+        val notificationManager: NotificationManager =
+            context.getSystemService(Context.NOTIFICATION_SERVICE) as NotificationManager
+        notificationManager.createNotificationChannel(channel)
     }
 }

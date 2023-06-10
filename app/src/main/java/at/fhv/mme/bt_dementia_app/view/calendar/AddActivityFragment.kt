@@ -2,7 +2,6 @@ package at.fhv.mme.bt_dementia_app.view.calendar
 
 import android.app.DatePickerDialog
 import android.app.TimePickerDialog
-import android.media.MediaPlayer
 import android.os.Bundle
 import android.view.LayoutInflater
 import android.view.View
@@ -17,6 +16,7 @@ import at.fhv.mme.bt_dementia_app.databinding.FragmentAddActivityBinding
 import at.fhv.mme.bt_dementia_app.model.Activity
 import at.fhv.mme.bt_dementia_app.utils.AlarmUtils
 import at.fhv.mme.bt_dementia_app.utils.DialogUtils
+import at.fhv.mme.bt_dementia_app.utils.MediaPlayerUtils
 import at.fhv.mme.bt_dementia_app.viewmodel.ActivityViewModel
 import at.fhv.mme.bt_dementia_app.viewmodel.AddActivityResult
 import dagger.hilt.android.AndroidEntryPoint
@@ -50,7 +50,6 @@ class AddActivityFragment : Fragment() {
         R.raw.mood_of_summer_abbynoise,
         R.raw.paradise_island_hartzmann
     )
-    private var mediaPlayer: MediaPlayer? = null
 
     override fun onCreateView(
         inflater: LayoutInflater,
@@ -81,20 +80,18 @@ class AddActivityFragment : Fragment() {
         }
 
         // turn media player off if song is over
-        mediaPlayer?.setOnCompletionListener {
+        MediaPlayerUtils.setOnCompletionListener {
             binding.ibtnPlayReminderAudio.setImageResource(R.drawable.icon_play_arrow_24dp)
         }
 
         // initialize play image button
         binding.ibtnPlayReminderAudio.setOnClickListener {
-            if (mediaPlayer?.isPlaying == true) {
-                mediaPlayer?.pause()
+            if (MediaPlayerUtils.isPlaying()) {
+                MediaPlayerUtils.stopMediaPlayer()
                 binding.ibtnPlayReminderAudio.setImageResource(R.drawable.icon_play_arrow_24dp)
             } else {
                 if (selectedAudioResource > 0) {
-                    mediaPlayer?.release()
-                    mediaPlayer = MediaPlayer.create(requireContext(), selectedAudioResource)
-                    mediaPlayer?.start()
+                    MediaPlayerUtils.startMediaPlayer(requireContext(), selectedAudioResource)
                     binding.ibtnPlayReminderAudio.setImageResource(R.drawable.icon_pause_24dp)
                 } else {
                     Toast.makeText(
@@ -263,7 +260,7 @@ class AddActivityFragment : Fragment() {
 
     override fun onDestroyView() {
         super.onDestroyView()
-        mediaPlayer?.pause()
+        MediaPlayerUtils.stopMediaPlayer()
 
         _binding = null
     }

@@ -9,6 +9,7 @@ import androidx.navigation.fragment.NavHostFragment
 import androidx.navigation.ui.setupWithNavController
 import at.fhv.mme.bt_dementia_app.R
 import at.fhv.mme.bt_dementia_app.databinding.ActivityMainBinding
+import at.fhv.mme.bt_dementia_app.utils.MediaPlayerUtils
 import dagger.hilt.android.AndroidEntryPoint
 
 @AndroidEntryPoint
@@ -38,5 +39,11 @@ class MainActivity : AppCompatActivity() {
                 binding.includeMain.bottomNavigation.visibility = View.GONE
             }
         }
+    }
+
+    override fun onResume() {
+        super.onResume()
+
+        MediaPlayerUtils.stopMediaPlayer()
     }
 }

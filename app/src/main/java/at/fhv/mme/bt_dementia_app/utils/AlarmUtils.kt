@@ -14,6 +14,7 @@ object AlarmUtils {
         val alarmIntent = Intent(requireActivity, AlarmReceiver::class.java).apply {
             putExtra("activity_name", activity.name)
             putExtra("activity_info", activity.additionalInfo)
+            putExtra("reminder_audio_path", activity.reminderAudioPath)
         }
         val pendingIntent = PendingIntent.getBroadcast(
             requireActivity,
@@ -37,6 +38,7 @@ object AlarmUtils {
         val alarmIntent = Intent(requireActivity, AlarmReceiver::class.java).apply {
             putExtra("activity_name", activity.name)
             putExtra("activity_info", activity.additionalInfo)
+            putExtra("reminder_audio_path", activity.reminderAudioPath)
         }
         val pendingIntent = PendingIntent.getBroadcast(
             requireActivity,
